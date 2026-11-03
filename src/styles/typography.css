@@ -1,0 +1,57 @@
+/*
+ * Type scale. The names match the app (huawei-2026/src/styles/typography.css) so copied
+ * components such as PixelButton keep working, but the sizes are tuned for a website: they
+ * grow on wide screens instead of staying phone-sized.
+ */
+:root {
+  --text-caption: 0.8125rem;
+  --text-label: 0.875rem;
+  --text-body: 1.0625rem;
+  --text-heading: 1.125rem;
+  --text-title: clamp(1.125rem, 1.6vw, 1.375rem);
+  --text-display: clamp(1.125rem, 2.6vw, 1.75rem);
+  --text-hero: clamp(1.75rem, 6vw, 3.5rem);
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Press Start 2P: the chunky arcade font used for headings and the wordmark. */
+.font-pixel { font-family: var(--font-pixel); letter-spacing: 0.04em; line-height: 1.6; }
+/* VT323: the tall terminal font used for taglines. */
+.font-vt { font-family: var(--font-vt); letter-spacing: 0.02em; line-height: 1.15; }
+/* Share Tech Mono: body text, buttons and labels (the default). */
+.font-mono { font-family: var(--font-mono); }
+
+/* Small coloured label that sits above a section heading. */
+.eyebrow {
+  font-family: var(--font-pixel);
+  font-size: 0.6875rem;
+  letter-spacing: 0.25em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.section-title {
+  font-family: var(--font-pixel);
+  font-size: var(--text-display);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.lead {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  color: var(--soft-foreground);
+  line-height: 1.7;
+}
+
+.pixel-button {
+  min-height: 44px;
+  max-width: 100%;
+  line-height: 1.5;
+  white-space: normal;
+}
