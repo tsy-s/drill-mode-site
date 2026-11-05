@@ -1,6 +1,6 @@
 const ROTATION = { right: 0, down: 90, left: 180, up: 270 } as const;
 
-export function IconArrow({ size = 16, color = "#00ff88", direction = "right" }: {
+export function IconArrow({ size = 16, color = "var(--green)", direction = "right" }: {
   size?: number; color?: string; direction?: keyof typeof ROTATION;
 }) {
   return (

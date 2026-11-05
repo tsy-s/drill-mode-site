@@ -1,4 +1,4 @@
-export function IconGlobe({ size = 20, color = "#4ecdc4" }: { size?: number; color?: string }) {
+export function IconGlobe({ size = 20, color = "var(--teal)" }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 12 12" style={{ imageRendering: "pixelated", display: "block" }}>
       <rect x={4} y={0} width={4} height={1} fill={color} />

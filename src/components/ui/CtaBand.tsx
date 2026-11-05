@@ -9,7 +9,7 @@ export function CtaBand({ title, text, button }: { title: string; text?: string;
     <section className="section">
       <div className="container-site">
         <Reveal>
-          <div className="relative overflow-hidden flex flex-col items-center gap-6 px-6 py-14 text-center" style={{ background: "#0d1322", border: "4px solid #2a3a5c", boxShadow: "8px 8px 0 #05080f" }}>
+          <div className="relative overflow-hidden flex flex-col items-center gap-6 px-6 py-14 text-center" style={{ background: "var(--surface)", border: "4px solid var(--border)", boxShadow: "8px 8px 0 var(--shadow-pixel)" }}>
             <Stars count={40} />
             <div className="relative pixel-fluid" style={{ width: 88, animation: "float-y 2.4s ease-in-out infinite" }}>
               <PixelMascot size={88} animate separated />

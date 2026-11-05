@@ -11,8 +11,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "tsc --noEmit && node scripts/check-site.mjs",
-    "placeholders": "node scripts/find-placeholders.mjs"
+    "check": "tsc --noEmit && node scripts/check-site.mjs && node scripts/check-theme.mjs",
+    "placeholders": "node scripts/find-placeholders.mjs",
+    "check:theme": "node scripts/check-theme.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

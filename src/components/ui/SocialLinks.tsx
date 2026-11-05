@@ -1,12 +1,14 @@
 import { SOCIALS } from "../../content/site";
+import { useContent } from "../../i18n/content";
 import { Icon, type IconName } from "../icons/registry";
 import { SmartLink } from "./SmartLink";
 
 /** Square pixel icon buttons for social links. Defaults to the site's SOCIALS (src/content/site.ts). */
-export function SocialLinks({ links = SOCIALS, size = 40 }: {
+export function SocialLinks({ links, size = 40 }: {
   links?: { label: string; icon: IconName; href: string }[]; size?: number;
 }) {
-  const visible = links.filter((l) => l.href);
+  const socials = useContent(SOCIALS);
+  const visible = (links ?? socials).filter((l) => l.href);
   if (!visible.length) return null;
   return (
     <ul className="flex flex-wrap gap-3" style={{ listStyle: "none", margin: 0, padding: 0 }}>

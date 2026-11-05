@@ -1,4 +1,4 @@
-export function IconInstagram({ size = 20, color = "#ff71c5" }: { size?: number; color?: string }) {
+export function IconInstagram({ size = 20, color = "var(--pink)" }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 12 12" style={{ imageRendering: "pixelated", display: "block" }}>
       <rect x={1} y={0} width={10} height={1} fill={color} />

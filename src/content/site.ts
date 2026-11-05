@@ -57,6 +57,7 @@ export const SITE = {
 
 /** The links in the top navigation bar, in order. `accent` is the underline colour. */
 export const NAV_LINKS = [
+  { label: "Home", to: "/", accent: "#ff6b35" },
   { label: "Product", to: "/product", accent: "#00ff88" },
   { label: "About", to: "/about", accent: "#4ecdc4" },
   { label: "FAQs", to: "/faqs", accent: "#ffe66d" },
@@ -111,3 +112,144 @@ export const FOOTER_LEGAL = [
   { label: "Privacy Policy", to: "/privacy" },
   { label: "Terms of Use", to: "/terms" },
 ];
+
+/*
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  SMALL WORDS USED BY THE SITE ITSELF: button labels, screen-reader labels, and the text
+ *  inside the phone mock-ups and feature pictures. Words in {curly brackets} are filled in
+ *  by the site, so keep them as they are. In `flags` lists, each phrase must appear word
+ *  for word in the text above it to be highlighted.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+export const UI = {
+  skipToContent: "Skip to content",
+  logoLabel: "{name} home",
+  nav: { main: "Main", openMenu: "Open menu", closeMenu: "Close menu", language: "Language", lightTheme: "Light theme" },
+  footer: { legal: "Legal" },
+  intro: { home: "Drill Mode intro", product: "Product intro" },
+  pageTitles: { about: "About", product: "Product", faq: "FAQs", contact: "Contact", demo: "Try Demo", notFound: "Page not found" },
+
+  legal: {
+    eyebrow: "Legal",
+    updated: "Last updated {date}",
+    englishOnly: "This page is only available in English for now.",
+  },
+  notFound: {
+    headline: "SUSPICIOUS LINK DETECTED.",
+    text: "This page doesn't exist. Good instinct to check! Let's get you somewhere safe.",
+    button: "[ BACK TO HOME ]",
+  },
+  faq: {
+    search: "Search the FAQs",
+    placeholder: "Search questions…",
+    categories: "FAQ categories",
+    noMatch: "No questions match \"{query}\". Try another word, or",
+    askUs: "ask us directly",
+  },
+  contact: {
+    callHelpline: "Call the {label}: {number}",
+    mailSubject: "[{topic}] Message from {name}",
+  },
+  demo: { playing: "▶ Playing", start: "Start ▶" },
+  drillTabs: { label: "Drills", redFlags: "Red flags it trains", tryDemo: "Try it in the demo →" },
+
+  quiz: {
+    progress: "MESSAGE {n} / {total}",
+    whatWouldYouDo: "WHAT WOULD YOU DO?",
+    inbox: "INBOX",
+    messages: "MESSAGES",
+    notifications: "NOTIFICATIONS",
+    textMessage: "Text message",
+    appNotification: "App notification",
+    redFlags: "Red flags",
+    genuineSigns: "Signs it's genuine",
+    tapToLearn: "tap to learn",
+    next: "NEXT MESSAGE →",
+    seeResults: "SEE RESULTS →",
+    complete: "DRILL COMPLETE",
+    xpEarned: "+{xp} XP earned",
+    scam: "scam",
+    genuine: "genuine",
+    playAgain: "PLAY AGAIN",
+    takeCall: "TAKE A SCAM CALL →",
+  },
+  call: {
+    phoneTitle: "SCAM CALL",
+    ended: "CALL ENDED",
+    speaking: "CALLER SPEAKING",
+    listening: "LISTENING...",
+    muteVoice: "Mute caller voice",
+    readAloud: "Read caller lines aloud",
+    voiceOn: "Voice on",
+    voiceOff: "Voice off",
+    drillActive: "SCAM DRILL ACTIVE",
+    reveal: "DRILL REVEAL",
+    practiseAnyway: "PRACTISE ANYWAY →",
+    tryAgain: "TRY AGAIN",
+    spotScam: "SPOT THE SCAM →",
+  },
+  chat: { pixi: "PIXI", typing: "Pixi is typing" },
+
+  /** The phone mock-ups on the Home and Product pages (src/components/mocks/PhoneMocks.tsx). */
+  mocks: {
+    call: {
+      title: "SCAM CALL",
+      speaking: "CALLER SPEAKING",
+      caller: "OFFICER TAN",
+      active: "SCAM DRILL ACTIVE",
+      lines: [
+        { text: "This is Officer Tan from the Office of Public Trust.", flags: ["Office of Public Trust"] },
+        { text: "Move your savings to a safe account right now.", flags: ["safe account", "right now"] },
+      ],
+      reply: "Banks don't do that. I'm hanging up.",
+      hangUp: "[ HANG UP ]",
+    },
+    sms: {
+      title: "MESSAGES",
+      sender: "ParcelGo Alert",
+      meta: "Text message · Today 11:47",
+      text: "Delivery failed. Pay a $1.99 redelivery fee today or your parcel will be returned: parcelgo-redeliver.example",
+      flags: ["$1.99 redelivery fee", "today", "parcelgo-redeliver.example"],
+      found: "3 RED FLAGS FOUND",
+      report: "REPORT SCAM",
+      pay: "PAY FEE",
+    },
+    email: {
+      title: "INBOX",
+      sender: "Campus Rewards Office",
+      subject: "YOU'VE WON A $300 REWARD!",
+      text: "Claim within 30 minutes or your reward will be reassigned. Verify your account to continue.",
+      flags: ["within 30 minutes", "will be reassigned", "Verify your account"],
+      claim: "CLAIM REWARD",
+    },
+    quiz: {
+      title: "INDIVIDUAL DRILL",
+      progress: "MESSAGE 3 / 5",
+      from: "FROM: +65 8000 0347",
+      text: "Hi it's me, this is my new number. I need $950 urgently. Please don't call.",
+      flags: ["this is my new number", "I need $950", "Please don't call"],
+      actions: ["REPORT AS SCAM", "TRANSFER MONEY", "SAVE NUMBER", "ASK FAMILY FIRST"],
+      result: "NICE CATCH! +100 XP",
+    },
+    house: {
+      title: "HOUSE DRILL",
+      round: "RACE · ROUND 4 / 5",
+      players: ["GRANDMA", "MUM", "YOU", "KID"],
+      pixi: "Grandma's on a streak! Mum, can you catch up? 👀",
+    },
+  },
+
+  /** The small pictures in the Product page's feature cards (src/components/product/FeatureVisual.tsx). */
+  visuals: {
+    call: { text: "\"This is Officer Tan. Your account is linked to a money-laundering case.\"", flags: ["money-laundering case"] },
+    quiz: { text: "Your parcel is held. Pay $1.99 today: parcel-go.example", flags: ["$1.99", "parcel-go.example"], scam: "SCAM", safe: "SAFE" },
+    chat: { pixi1: "Dad hung up on the fake bank call straight away 👏", pixi2: "Mum, have you ever had a call like this?", reply: "Yes! Last month 😅" },
+    rewards: { payday: "PAYDAY SUNDAY", level: "LV 4 · SCAM BLOCKER" },
+    safety: "SAFE",
+  },
+};
+
+/** Fills in the {words} in a UI string: format(UI.quiz.xpEarned, { xp: 300 }). */
+export function format(text: string, values: Record<string, string | number>) {
+  return text.replace(/\{(\w+)\}/g, (match, key) => (key in values ? String(values[key]) : match));
+}

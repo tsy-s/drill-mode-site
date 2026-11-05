@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 import { HOME } from "../../content/home";
+import { UI } from "../../content/site";
+import { useContent } from "../../i18n/content";
 import { PixelMascot } from "../avatars/PixelMascot";
 import { ColorDots } from "../brand/ColorDots";
 import { GlitchText } from "../brand/GlitchText";
@@ -19,16 +21,17 @@ import { IntroShell, scrollToId, useAfter } from "./IntroShell";
 const LOGO_AT = 2050;
 
 export function HomeIntro({ startId }: { startId: string }) {
-  const intro = HOME.intro;
+  const intro = useContent(HOME).intro;
+  const ui = useContent(UI);
   return (
-    <IntroShell duration={3900} flashAt={LOGO_AT} skipLabel={intro.skip} label="Drill Mode intro">
+    <IntroShell id="home" startId={startId} duration={3900} flashAt={LOGO_AT} skipLabel={intro.skip} label={ui.intro.home}>
       {({ done }) => <Stage done={done} startId={startId} />}
     </IntroShell>
   );
 }
 
 function Stage({ done, startId }: { done: boolean; startId: string }) {
-  const intro = HOME.intro;
+  const intro = useContent(HOME).intro;
   const revealed = useAfter(LOGO_AT, done);
   const late = (d: number) => ({ "--d": `${d}ms` }) as CSSProperties;
 

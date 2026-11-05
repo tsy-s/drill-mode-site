@@ -6,7 +6,7 @@ import { SmartLink } from "./SmartLink";
  * hard 4px shadow, pushes in when pressed). Use it for buttons that go to another page.
  */
 export function PixelLink({
-  to, children, color = "#00ff88", textColor = "#0a0e1a", size = "md", full = false, onClick,
+  to, children, color = "var(--green-fill)", textColor = "var(--on-fill)", size = "md", full = false, onClick,
 }: {
   to: string; children: ReactNode; color?: string; textColor?: string;
   size?: "sm" | "md" | "lg"; full?: boolean; onClick?: () => void;
@@ -28,8 +28,8 @@ export function PixelLink({
         fontSize: textSize,
         backgroundColor: color,
         color: textColor,
-        border: "4px solid #0a0e1a",
-        boxShadow: pressed ? "none" : "4px 4px 0px #0a0e1a",
+        border: "4px solid var(--outline)",
+        boxShadow: pressed ? "none" : "4px 4px 0px var(--outline)",
         transform: pressed ? "translate(4px, 4px)" : "translate(0,0)",
         fontFamily: "'Share Tech Mono', monospace",
         letterSpacing: "0.06em",
