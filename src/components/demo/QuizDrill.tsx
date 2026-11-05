@@ -57,7 +57,7 @@ export function QuizDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
     const ratio = correct / scenarios.length;
     const pixiLine = ratio >= 0.8 ? QUIZ.pixiSummary.high : ratio >= 0.5 ? QUIZ.pixiSummary.mid : QUIZ.pixiSummary.low;
     return (
-      <div className="pixel-card flex flex-col items-center gap-6 p-6 md:p-10 text-center" style={{ borderColor: "var(--yellow)" }}>
+      <div className="pixel-card flex flex-col items-center gap-6 p-6 md:p-10 text-center" style={{ borderColor: "var(--yellow-line)" }}>
         <div className="font-pixel" style={{ fontSize: 13, color: "var(--yellow)" }}>{ui.complete}</div>
         <div className="font-pixel" style={{ fontSize: "clamp(2rem, 6vw, 3rem)", color: "var(--green)" }}>{correct} / {scenarios.length}</div>
         <div className="text-soft-foreground">{format(ui.xpEarned, { xp: totalXp })}</div>
@@ -90,7 +90,7 @@ export function QuizDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
   const marked = (text: string) =>
     !choice ? text : splitByPhrases(text, clues).map((p, i) =>
       p.match === -1 ? <span key={i}>{p.text}</span> : (
-        <mark key={i} className={markClass} onClick={() => setOpenClue(p.match)} style={{ outline: openClue === p.match ? "2px solid var(--yellow)" : undefined }}>{p.text}</mark>
+        <mark key={i} className={markClass} onClick={() => setOpenClue(p.match)} style={{ outline: openClue === p.match ? "2px solid var(--yellow-line)" : undefined }}>{p.text}</mark>
       ),
     );
 
@@ -124,7 +124,7 @@ export function QuizDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
               {s.subject && <div className="text-foreground-strong" style={{ fontWeight: 600 }}>{marked(s.subject)}</div>}
               <div className={s.type === "sms" ? "bubble" : ""} style={{ lineHeight: 1.7, color: "var(--foreground)" }}>{marked(s.message)}</div>
               {choice && (
-                <div className="flex items-start gap-2 text-xs p-2" style={{ border: `2px dashed ${s.isScam ? "var(--red)" : "var(--green)"}`, color: s.isScam ? "var(--red-soft)" : "var(--green-soft)" }}>
+                <div className="flex items-start gap-2 text-xs p-2" style={{ border: `2px dashed ${s.isScam ? "var(--red-line)" : "var(--green-line)"}`, color: s.isScam ? "var(--red-soft)" : "var(--green-soft)" }}>
                   <IconEyeInspect size={12} color={s.isScam ? "var(--red)" : "var(--green)"} /> {s.senderNote}
                 </div>
               )}

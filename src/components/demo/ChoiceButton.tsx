@@ -7,9 +7,9 @@ export function ChoiceButton({ children, onClick, disabled, state = "idle" }: {
 }) {
   const colors = {
     idle: { bg: "var(--card)", border: "var(--border-strong)", fg: "var(--foreground)" },
-    correct: { bg: "color-mix(in srgb, var(--green) 14%, var(--background))", border: "var(--green)", fg: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))" },
-    wrong: { bg: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "var(--red)", fg: "color-mix(in srgb, var(--red-soft) 40%, var(--foreground-strong))" },
-    cautious: { bg: "color-mix(in srgb, var(--yellow) 14%, var(--background))", border: "var(--yellow)", fg: "var(--yellow-soft)" },
+    correct: { bg: "color-mix(in srgb, var(--green) 14%, var(--background))", border: "var(--green-line)", fg: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))" },
+    wrong: { bg: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "var(--red-line)", fg: "color-mix(in srgb, var(--red-soft) 40%, var(--foreground-strong))" },
+    cautious: { bg: "color-mix(in srgb, var(--yellow) 14%, var(--background))", border: "var(--yellow-line)", fg: "var(--yellow-soft)" },
     muted: { bg: "var(--background)", border: "var(--secondary)", fg: "var(--muted-foreground)" },
   }[state];
   return (

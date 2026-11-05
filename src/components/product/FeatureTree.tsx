@@ -9,7 +9,7 @@ import { Icon } from "../icons/registry";
 import { SectionHeader } from "../ui/SectionHeader";
 import { SpeechBubble } from "../ui/SpeechBubble";
 import { FeatureVisual } from "./FeatureVisual";
-import { ink, tint } from "../../lib/color";
+import { ink, tint, line } from "../../lib/color";
 
 type Feature = (typeof PRODUCT.features.items)[number];
 
@@ -72,13 +72,13 @@ function FeatureRow({ feature, side }: { feature: Feature; side: "left" | "right
       ref={ref}
       id={`feature-${feature.id}`}
       className={`tree-row is-${side} ${inView ? "is-visible" : ""}`}
-      style={{ "--accent-color": ink(feature.accent) } as CSSProperties}
+      style={{ "--accent-color": line(feature.accent) } as CSSProperties}
     >
       <div className="tree-branch" aria-hidden="true" />
       <div className="tree-node" aria-hidden="true" />
-      <article className="tree-card pixel-card flex flex-col gap-4 p-5 md:p-6" style={{ borderColor: ink(feature.accent), boxShadow: `6px 6px 0 ${tint(feature.accent, 20)}` }}>
+      <article className="tree-card pixel-card flex flex-col gap-4 p-5 md:p-6" style={{ borderColor: line(feature.accent), boxShadow: `6px 6px 0 ${tint(feature.accent, 20)}` }}>
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center" style={{ width: 40, height: 40, border: `3px solid ${ink(feature.accent)}`, background: "var(--background)" }}>
+          <div className="flex items-center justify-center" style={{ width: 40, height: 40, border: `3px solid ${line(feature.accent)}`, background: "var(--background)" }}>
             <Icon name={feature.icon} size={20} color={ink(feature.accent)} />
           </div>
           <span className="pixel-chip" style={{ color: ink(feature.accent) }}>{feature.tag}</span>

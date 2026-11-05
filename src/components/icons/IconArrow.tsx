@@ -4,7 +4,7 @@ export function IconArrow({ size = 16, color = "var(--green)", direction = "righ
   size?: number; color?: string; direction?: keyof typeof ROTATION;
 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 10 10" style={{ imageRendering: "pixelated", display: "block" }}>
+    <svg className="px-icon" width={size} height={size} viewBox="0 0 10 10" style={{ imageRendering: "pixelated", display: "block" }}>
       <g transform={`rotate(${ROTATION[direction] ?? 0} 5 5)`} fill={color}>
         <rect x={0} y={4} width={9} height={2} />
         <rect x={5} y={1} width={1} height={8} />

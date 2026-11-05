@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { NAV_CTA as NAV_CTA_EN, NAV_LINKS as NAV_LINKS_EN, UI } from "../../content/site";
 import { useContent } from "../../i18n/content";
-import { ink } from "../../lib/color";
+import { ink, line } from "../../lib/color";
 import { Logo } from "../brand/Logo";
 import { IconMenu, IconX } from "../icons";
 import { PixelLink } from "../ui/PixelLink";
@@ -72,7 +72,7 @@ export function NavBar() {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) => `py-3 px-2 text-lg uppercase tracking-widest border-l-4 ${isActive ? "text-foreground-strong" : "text-soft-foreground border-transparent"}`}
-                style={({ isActive }) => (isActive ? { borderColor: ink(link.accent) } : undefined)}
+                style={({ isActive }) => (isActive ? { borderColor: line(link.accent) } : undefined)}
               >
                 {link.label}
               </NavLink>

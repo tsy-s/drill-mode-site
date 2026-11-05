@@ -10,7 +10,7 @@ import { CONTACT as CONTACT_EN } from "../content/contact";
 import { format, SITE as SITE_EN, UI } from "../content/site";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useContent } from "../i18n/content";
-import { ink, tint } from "../lib/color";
+import { ink, tint, line } from "../lib/color";
 
 /**
  * CONTACT PAGE. Text is in src/content/contact.ts, which also explains how the form
@@ -57,7 +57,7 @@ export function ContactPage() {
       <section className="section" style={{ paddingTop: "clamp(48px, 7vw, 80px)" }}>
         <div className="container-site grid gap-10 lg:grid-cols-[1.5fr_1fr] items-start">
           <Reveal>
-            <form onSubmit={onSubmit} className="pixel-card flex flex-col gap-5 p-6 md:p-8" style={{ borderColor: "var(--violet)", boxShadow: "6px 6px 0 color-mix(in srgb, var(--violet) 27%, transparent)" }}>
+            <form onSubmit={onSubmit} className="pixel-card flex flex-col gap-5 p-6 md:p-8" style={{ borderColor: "var(--violet-line)", boxShadow: "6px 6px 0 color-mix(in srgb, var(--violet-line) 27%, transparent)" }}>
               <div className="grid gap-5 sm:grid-cols-2">
                 <label>
                   <span className="field-label">{form.name}</span>
@@ -104,7 +104,7 @@ export function ContactPage() {
               return (
                 <Reveal key={card.title} delay={i * 100}>
                   <SmartLink to={link} className="flex gap-4 p-5 transition-colors bg-[var(--surface)] hover:bg-[var(--secondary)]" style={{ border: `3px solid ${tint(card.color, 33)}` }}>
-                    <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 44, height: 44, border: `3px solid ${ink(card.color)}`, background: "var(--background)" }}>
+                    <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 44, height: 44, border: `3px solid ${line(card.color)}`, background: "var(--background)" }}>
                       <Icon name={card.icon} size={18} color={ink(card.color)} />
                     </div>
                     <div className="flex flex-col gap-1 min-w-0">
@@ -122,7 +122,7 @@ export function ContactPage() {
               </div>
             </Reveal>
             <Reveal delay={300}>
-              <a href={`tel:${SITE.helpline.number}`} className="flex items-center gap-4 p-5" style={{ background: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "3px solid var(--red)" }}>
+              <a href={`tel:${SITE.helpline.number}`} className="flex items-center gap-4 p-5" style={{ background: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "3px solid var(--red-line)" }}>
                 <IconPhone size={22} color="var(--red)" />
                 <span className="flex flex-col">
                   <span className="text-sm uppercase tracking-widest" style={{ color: "var(--red-soft)" }}>{CONTACT.helplineTitle}</span>

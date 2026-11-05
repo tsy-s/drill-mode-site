@@ -15,7 +15,7 @@ export function SafetySection({ id }: { id: string }) {
           {safety.items.map((item, i) => (
             <Reveal key={item.title} delay={(i % 3) * 100}>
               <div className="h-full flex gap-4 p-5" style={{ background: "var(--surface)", border: "3px solid var(--secondary)" }}>
-                <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 44, height: 44, border: "3px solid var(--green)", background: "var(--background)" }}>
+                <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 44, height: 44, border: "3px solid var(--green-line)", background: "var(--background)" }}>
                   <Icon name={item.icon} size={18} color="var(--green)" />
                 </div>
                 <div className="flex flex-col gap-1">

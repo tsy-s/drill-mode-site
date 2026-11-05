@@ -12,7 +12,7 @@ import { PixelPhone } from "../mocks/PixelPhone";
 import { PixelButton } from "../ui/PixelButton";
 import { ChoiceButton } from "./ChoiceButton";
 import { PixiChat } from "./PixiChat";
-import { ink } from "../../lib/color";
+import { ink, line } from "../../lib/color";
 
 type Outcome = keyof typeof CALL_EN.outcomes;
 type Line = { who: "caller" | "you" | "reveal"; text: string; flags?: { phrase: string; flagId: string }[] };
@@ -200,7 +200,7 @@ export function CallDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
         )}
 
         {flag && (
-          <div className="flex flex-col gap-2 p-4" style={{ background: "color-mix(in srgb, var(--background) 95%, transparent)", borderTop: "3px solid var(--red)", border: "3px solid var(--red)", animation: "rise-in .2s steps(3) both" }} role="status">
+          <div className="flex flex-col gap-2 p-4" style={{ background: "color-mix(in srgb, var(--background) 95%, transparent)", borderTop: "3px solid var(--red-line)", border: "3px solid var(--red-line)", animation: "rise-in .2s steps(3) both" }} role="status">
             <div className="flex items-center gap-2 font-pixel" style={{ fontSize: 11, color: "var(--red-soft)" }}><IconReportFlag size={12} color="var(--red)" /> {flag.name}</div>
             <p className="text-sm" style={{ margin: 0 }}>{flag.explanation}</p>
           </div>
@@ -208,7 +208,7 @@ export function CallDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
 
         {phase === "ended" && outcome && (
           <div className="flex flex-col gap-5" style={{ animation: "rise-in .35s steps(4) both" }}>
-            <div className="flex flex-col gap-2 p-5" style={{ background: "var(--background)", border: `3px solid ${ink(CALL.outcomes[outcome].color)}` }}>
+            <div className="flex flex-col gap-2 p-5" style={{ background: "var(--background)", border: `3px solid ${line(CALL.outcomes[outcome].color)}` }}>
               <div className="font-pixel" style={{ fontSize: 15, color: ink(CALL.outcomes[outcome].color), lineHeight: 1.6 }}>{CALL.outcomes[outcome].title}</div>
               <p style={{ margin: 0 }}>{CALL.outcomes[outcome].text}</p>
             </div>
@@ -244,7 +244,7 @@ export function CallDrill({ onFinish, onSwitch }: { onFinish: () => void; onSwit
 function CallLine({ line, activeFlag, onFlag, revealLabel }: { line: Line; activeFlag: string | null; onFlag: (id: string) => void; revealLabel: string }) {
   if (line.who === "reveal") {
     return (
-      <div className="p-3 text-[13px]" style={{ background: "color-mix(in srgb, var(--green) 14%, var(--background))", border: "3px solid var(--green)", color: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))", animation: "rise-in .3s steps(4) both" }}>
+      <div className="p-3 text-[13px]" style={{ background: "color-mix(in srgb, var(--green) 14%, var(--background))", border: "3px solid var(--green-line)", color: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))", animation: "rise-in .3s steps(4) both" }}>
         <div className="font-pixel mb-2" style={{ fontSize: 9, color: "var(--green)" }}>{revealLabel}</div>
         {line.text}
       </div>
@@ -257,7 +257,7 @@ function CallLine({ line, activeFlag, onFlag, revealLabel }: { line: Line; activ
   return (
     <div className="flex gap-2 items-start">
       <div className="flex-shrink-0 mt-1"><PixelAvatar rank={9} size={22} /></div>
-      <div className="bubble is-caller" style={{ maxWidth: "85%", borderColor: flags.length ? "var(--red)" : undefined }}>
+      <div className="bubble is-caller" style={{ maxWidth: "85%", borderColor: flags.length ? "var(--red-line)" : undefined }}>
         {splitByPhrases(line.text, flags.map((f) => f.phrase)).map((p, i) =>
           p.match === -1 ? <span key={i}>{p.text}</span> : (
             <mark
@@ -267,7 +267,7 @@ function CallLine({ line, activeFlag, onFlag, revealLabel }: { line: Line; activ
               tabIndex={0}
               onClick={() => onFlag(flags[p.match].flagId)}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onFlag(flags[p.match].flagId); }}
-              style={{ outline: activeFlag === flags[p.match].flagId ? "2px solid var(--yellow)" : undefined }}
+              style={{ outline: activeFlag === flags[p.match].flagId ? "2px solid var(--yellow-line)" : undefined }}
             >
               {p.text}
             </mark>

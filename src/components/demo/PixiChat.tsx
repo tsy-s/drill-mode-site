@@ -67,7 +67,7 @@ export function PixiChat({ title, post, question, replies }: {
         {showReplies && (
           <div className="flex flex-wrap justify-end gap-2 pt-1">
             {replies.map((r) => (
-              <button key={r.label} type="button" onClick={() => reply(r)} className="px-3 py-2 text-sm cursor-pointer" style={{ background: "color-mix(in srgb, var(--green) 12%, var(--background))", color: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))", border: "2px solid var(--green)" }}>
+              <button key={r.label} type="button" onClick={() => reply(r)} className="px-3 py-2 text-sm cursor-pointer" style={{ background: "color-mix(in srgb, var(--green) 12%, var(--background))", color: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))", border: "2px solid var(--green-line)" }}>
                 {r.label}
               </button>
             ))}

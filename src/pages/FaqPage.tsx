@@ -81,7 +81,7 @@ export function FaqPage() {
             ))}
 
             <Reveal>
-              <aside className="flex flex-col sm:flex-row gap-5 p-6" style={{ background: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "4px solid var(--red)", boxShadow: "6px 6px 0 color-mix(in srgb, var(--red) 27%, transparent)" }}>
+              <aside className="flex flex-col sm:flex-row gap-5 p-6" style={{ background: "color-mix(in srgb, var(--red) 14%, var(--background))", border: "4px solid var(--red-line)", boxShadow: "6px 6px 0 color-mix(in srgb, var(--red-line) 27%, transparent)" }}>
                 <div className="flex-shrink-0"><IconWarning size={36} color="var(--red)" /></div>
                 <div className="flex flex-col gap-3">
                   <h2 className="font-pixel" style={{ margin: 0, fontSize: 14, color: "var(--red-soft)", lineHeight: 1.6 }}>{FAQ.emergency.title}</h2>

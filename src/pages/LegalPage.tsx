@@ -21,13 +21,13 @@ export function LegalPage({ doc }: { doc: typeof PRIVACY }) {
       <section className="section" style={{ paddingTop: "clamp(40px, 6vw, 64px)" }}>
         <article className="container-site flex flex-col gap-10" style={{ maxWidth: 820 }}>
           {translated && (
-            <div className="flex items-start gap-3 p-4" style={{ background: "var(--surface)", border: "3px solid var(--teal)" }}>
+            <div className="flex items-start gap-3 p-4" style={{ background: "var(--surface)", border: "3px solid var(--teal-line)" }}>
               <IconGlobe size={20} /> <span>{ui.legal.englishOnly}</span>
             </div>
           )}
           <div lang={translated ? "en" : undefined} className="flex flex-col gap-10">
             {doc.draftNotice && (
-              <div className="flex items-start gap-3 p-4" style={{ background: "color-mix(in srgb, var(--yellow) 14%, var(--background))", border: "3px solid var(--yellow)", color: "var(--yellow-soft)" }}>
+              <div className="flex items-start gap-3 p-4" style={{ background: "color-mix(in srgb, var(--yellow) 14%, var(--background))", border: "3px solid var(--yellow-line)", color: "var(--yellow-soft)" }}>
                 <IconWarning size={20} color="var(--yellow)" /> <span>{doc.draftNotice}</span>
               </div>
             )}

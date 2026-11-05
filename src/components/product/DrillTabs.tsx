@@ -8,7 +8,7 @@ import { Reveal } from "../layout/Reveal";
 import { DRILL_MOCKS } from "../mocks/PhoneMocks";
 import { PixelLink } from "../ui/PixelLink";
 import { SectionHeader } from "../ui/SectionHeader";
-import { fill, ink } from "../../lib/color";
+import { fill, ink, line } from "../../lib/color";
 
 /** "A closer look at each drill": one tab per drill, each with a phone mock-up and steps. */
 export function DrillTabs({ id }: { id: string }) {
@@ -49,7 +49,7 @@ export function DrillTabs({ id }: { id: string }) {
                   style={{
                     background: selected ? "var(--secondary)" : "var(--background)",
                     color: selected ? "var(--foreground-strong)" : "var(--soft-foreground)",
-                    border: `3px solid ${selected ? ink(t.accent) : "var(--border)"}`,
+                    border: `3px solid ${selected ? line(t.accent) : "var(--border)"}`,
                     borderBottomWidth: selected ? 6 : 3,
                   }}
                 >

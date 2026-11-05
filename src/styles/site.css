@@ -10,7 +10,7 @@
   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
   ::selection { background: color-mix(in srgb, var(--green-fill) 33%, transparent); color: var(--foreground-strong); }
-  :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--yellow-line); outline-offset: 3px; }
   a { color: inherit; text-decoration: none; }
 
   ::-webkit-scrollbar { width: 12px; height: 12px; }
@@ -31,8 +31,8 @@
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
   border: 2px solid currentColor; font-size: var(--text-label); line-height: 1.4; text-transform: uppercase;
 }
-.text-link { color: var(--teal); border-bottom: 2px solid color-mix(in srgb, var(--teal) 33%, transparent); transition: border-color .15s, color .15s; }
-.text-link:hover { color: var(--foreground-strong); border-color: var(--teal); }
+.text-link { color: var(--teal); border-bottom: 2px solid color-mix(in srgb, var(--teal-line) 33%, transparent); transition: border-color .15s, color .15s; }
+.text-link:hover { color: var(--foreground-strong); border-color: var(--teal-line); }
 
 /* ── KEYFRAMES ────────────────────────────────────────────────────────── */
 /* From the app (huawei-2026/src/app/App.tsx). */
@@ -239,7 +239,7 @@
 }
 .tree-trunk-fill {
   position: absolute; inset: 0 0 auto 0; height: calc(var(--trunk, 0) * 100%);
-  background: linear-gradient(180deg, var(--teal-fill), var(--green-fill) 50%, var(--violet-fill)); box-shadow: 0 0 calc(12px * var(--glow)) color-mix(in srgb, var(--green) 40%, transparent);
+  background: linear-gradient(180deg, var(--teal-fill), var(--green-fill) 50%, var(--violet-fill)); box-shadow: 0 0 calc(12px * var(--glow)) color-mix(in srgb, var(--green-line) 40%, transparent);
 }
 .tree-row { position: relative; display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; }
 .tree-row + .tree-row { margin-top: clamp(32px, 5vw, 56px); }
@@ -247,12 +247,12 @@
 .tree-rider { position: absolute; left: 50%; top: calc(var(--trunk, 0) * 100%); transform: translate(-50%, -50%); z-index: 3; filter: drop-shadow(0 0 calc(8px * var(--glow)) var(--teal)); }
 .tree-node {
   grid-column: 2; justify-self: center; width: 22px; height: 22px; background: var(--background);
-  border: 4px solid var(--accent-color, var(--green)); box-shadow: 0 0 0 4px var(--outline), 0 0 calc(14px * var(--glow)) var(--accent-color, var(--green));
+  border: 4px solid var(--accent-color, var(--green-line)); box-shadow: 0 0 0 4px var(--outline), 0 0 calc(14px * var(--glow)) var(--accent-color, var(--green-line));
   position: relative; z-index: 2;
 }
 .tree-branch {
   position: absolute; top: 50%; height: 4px; background: var(--accent-color, var(--green-fill));
-  box-shadow: 0 0 calc(10px * var(--glow)) var(--accent-color, var(--green)); transform: scaleX(0); transition: transform .5s steps(8);
+  box-shadow: 0 0 calc(10px * var(--glow)) var(--accent-color, var(--green-line)); transform: scaleX(0); transition: transform .5s steps(8);
 }
 .tree-row.is-left .tree-branch { right: 50%; width: 36px; transform-origin: right; }
 .tree-row.is-right .tree-branch { left: 50%; width: 36px; transform-origin: left; }
@@ -276,27 +276,27 @@
 /* The app's phone frame (huawei-2026/src/app/components/layout/PhoneFrame.tsx), scaled down. */
 .phone {
   position: relative; width: min(100%, 340px); background: var(--background); border: 6px solid var(--border);
-  box-shadow: 8px 8px 0 var(--shadow-pixel), 0 0 calc(40px * var(--glow)) color-mix(in srgb, var(--green) 15%, transparent); overflow: hidden;
+  box-shadow: 8px 8px 0 var(--shadow-pixel), 0 0 calc(40px * var(--glow)) color-mix(in srgb, var(--green-line) 15%, transparent); overflow: hidden;
 }
 .phone-status { display: flex; justify-content: space-between; padding: 6px 12px; font-size: 12px; color: var(--muted-foreground); border-bottom: 2px solid var(--secondary); }
 .bubble { border: 3px solid var(--border); background: var(--secondary); padding: 10px 12px; line-height: 1.6; }
-.bubble.is-caller { border-color: var(--orange); }
-.bubble.is-you { border-color: var(--green); background: color-mix(in srgb, var(--green) 12%, var(--background)); color: color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong)); }
-.bubble.is-pixi { border-color: var(--cyan); background: color-mix(in srgb, var(--cyan) 10%, var(--background)); }
+.bubble.is-caller { border-color: var(--orange-line); }
+.bubble.is-you { border-color: var(--green-line); background: color-mix(in srgb, var(--green) 12%, var(--background)); color: color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong)); }
+.bubble.is-pixi { border-color: var(--cyan-line); background: color-mix(in srgb, var(--cyan) 10%, var(--background)); }
 .typing-dots span { display: inline-block; animation: blink 1s steps(1) infinite; }
 .typing-dots span:nth-child(2) { animation-delay: .2s; }
 .typing-dots span:nth-child(3) { animation-delay: .4s; }
 
 /* Red-flag phrases in demo messages. */
 .flag-mark {
-  background: color-mix(in srgb, var(--red-fill) 13%, transparent); color: var(--red-soft); border-bottom: 2px solid var(--red); padding: 0 2px; cursor: help;
+  background: color-mix(in srgb, var(--red-fill) 13%, transparent); color: var(--red-soft); border-bottom: 2px solid var(--red-line); padding: 0 2px; cursor: help;
 }
-.flag-mark.is-safe { background: color-mix(in srgb, var(--green-fill) 9%, transparent); color: var(--green-soft); border-color: var(--green); }
+.flag-mark.is-safe { background: color-mix(in srgb, var(--green-fill) 9%, transparent); color: var(--green-soft); border-color: var(--green-line); }
 
 /* ── FAQ ACCORDION ────────────────────────────────────────────────────── */
 .faq-item { border: 3px solid var(--border); background: var(--card); }
 .faq-item + .faq-item { margin-top: 12px; }
-.faq-item[open] { border-color: var(--teal); box-shadow: 4px 4px 0 var(--teal); }
+.faq-item[open] { border-color: var(--teal-line); box-shadow: 4px 4px 0 var(--teal-line); }
 .faq-item summary { list-style: none; cursor: pointer; display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-chevron { transition: transform .2s steps(3); flex-shrink: 0; }
@@ -308,7 +308,7 @@
   width: 100%; min-height: 48px; padding: 10px 12px; background: var(--background); color: var(--foreground);
   border: 3px solid var(--border-strong); font: inherit; font-size: var(--text-body); border-radius: 0;
 }
-.field:focus { border-color: var(--teal); outline: none; box-shadow: 4px 4px 0 var(--teal); }
+.field:focus { border-color: var(--teal-line); outline: none; box-shadow: 4px 4px 0 var(--teal-line); }
 textarea.field { min-height: 140px; resize: vertical; }
 
 /* ── REDUCED MOTION ───────────────────────────────────────────────────── */

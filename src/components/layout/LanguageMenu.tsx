@@ -44,7 +44,7 @@ export function LanguageMenu({ variant = "menu" }: { variant?: "menu" | "list" }
               onClick={() => setLanguage(l.code)}
               aria-pressed={l.code === language}
               className="px-3 py-2 text-left border-2 cursor-pointer"
-              style={{ background: l.code === language ? "var(--secondary)" : "transparent", borderColor: l.code === language ? "var(--teal)" : "var(--border)", color: l.code === language ? "var(--foreground-strong)" : "var(--soft-foreground)" }}
+              style={{ background: l.code === language ? "var(--secondary)" : "transparent", borderColor: l.code === language ? "var(--teal-line)" : "var(--border)", color: l.code === language ? "var(--foreground-strong)" : "var(--soft-foreground)" }}
             >
               {l.label}
             </button>
@@ -82,7 +82,7 @@ export function LanguageMenu({ variant = "menu" }: { variant?: "menu" | "list" }
                 onClick={() => { setLanguage(l.code); setOpen(false); buttonRef.current?.focus(); }}
                 aria-current={l.code === language ? "true" : undefined}
                 className="w-full flex items-center justify-between gap-3 px-3 py-2 text-left cursor-pointer bg-transparent border-0 hover:bg-[var(--secondary)]"
-                style={{ color: l.code === language ? "var(--foreground-strong)" : "var(--soft-foreground)", borderLeft: `4px solid ${l.code === language ? "var(--teal)" : "transparent"}` }}
+                style={{ color: l.code === language ? "var(--foreground-strong)" : "var(--soft-foreground)", borderLeft: `4px solid ${l.code === language ? "var(--teal-line)" : "transparent"}` }}
               >
                 {l.label}
                 <span className="text-xs text-muted-foreground">{l.short}</span>

@@ -65,7 +65,7 @@ export function CallMock() {
         </div>
         <div className="flex gap-2 items-start">
           <PixelAvatar rank={9} size={20} />
-          <div className="bubble is-caller" style={{ maxWidth: "80%", borderColor: "var(--red)" }}>
+          <div className="bubble is-caller" style={{ maxWidth: "80%", borderColor: "var(--red-line)" }}>
             <Flagged text={m.lines[1].text} phrases={m.lines[1].flags} />
           </div>
         </div>
@@ -117,7 +117,7 @@ export function EmailMock() {
         <p style={{ margin: 0, color: "var(--foreground)" }}>
           <Flagged text={m.text} phrases={m.flags} />
         </p>
-        <div className="flex items-center gap-2 px-2 py-2 text-xs" style={{ border: "2px dashed var(--red)", color: "var(--red-soft)" }}>
+        <div className="flex items-center gap-2 px-2 py-2 text-xs" style={{ border: "2px dashed var(--red-line)", color: "var(--red-soft)" }}>
           <IconWarning size={11} color="var(--red)" /> reward_form.zip
         </div>
         <div className="text-center py-2 text-xs" style={{ background: "var(--teal-fill)", color: "var(--on-fill)", border: "3px solid var(--outline)" }}>{m.claim}</div>
@@ -165,7 +165,7 @@ export function HouseMock() {
       </div>
       <div className="p-3 flex flex-col gap-2">
         {players.map((p) => (
-          <div key={p.name} className="flex items-center gap-3 px-2 py-2" style={{ background: "var(--card)", border: `3px solid ${p.crown ? "var(--yellow)" : "var(--border)"}` }}>
+          <div key={p.name} className="flex items-center gap-3 px-2 py-2" style={{ background: "var(--card)", border: `3px solid ${p.crown ? "var(--yellow-line)" : "var(--border)"}` }}>
             <div className="w-9 flex justify-center items-end" style={{ height: 44 }}>{p.char}</div>
             <div className="flex-1 text-xs text-foreground-strong flex items-center gap-2">{p.name}{p.crown && <PixelCrown size={16} />}</div>
             <div className="text-xs" style={{ color: p.crown ? "var(--yellow)" : "var(--soft-foreground)" }}>{p.score} XP</div>

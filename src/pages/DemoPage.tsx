@@ -11,7 +11,7 @@ import { UI } from "../content/site";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useContent } from "../i18n/content";
 import { useLanguage } from "../i18n/LanguageProvider";
-import { ink, tint } from "../lib/color";
+import { ink, tint, line } from "../lib/color";
 
 type Mode = "quiz" | "call";
 
@@ -54,9 +54,9 @@ export function DemoPage() {
                     onClick={() => pick(m.id)}
                     aria-pressed={selected}
                     className="w-full h-full text-left flex gap-5 p-6 cursor-pointer transition-transform hover:-translate-y-1"
-                    style={{ background: selected ? "var(--secondary)" : "var(--surface)", border: `4px solid ${selected ? ink(m.color) : "var(--border)"}`, boxShadow: selected ? `6px 6px 0 ${tint(m.color, 33)}` : "6px 6px 0 var(--shadow-pixel)", color: "inherit" }}
+                    style={{ background: selected ? "var(--secondary)" : "var(--surface)", border: `4px solid ${selected ? line(m.color) : "var(--border)"}`, boxShadow: selected ? `6px 6px 0 ${tint(m.color, 33)}` : "6px 6px 0 var(--shadow-pixel)", color: "inherit" }}
                   >
-                    <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 64, height: 64, background: "var(--background)", border: `3px solid ${ink(m.color)}` }}>
+                    <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 64, height: 64, background: "var(--background)", border: `3px solid ${line(m.color)}` }}>
                       <Icon name={m.icon} size={30} color={ink(m.color)} />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -81,7 +81,7 @@ export function DemoPage() {
 
           {finished && (
             <Reveal>
-              <div className="flex flex-col items-center gap-5 p-8 text-center" style={{ background: "var(--surface)", border: "4px solid var(--green)", boxShadow: "8px 8px 0 color-mix(in srgb, var(--green) 40%, var(--background))" }}>
+              <div className="flex flex-col items-center gap-5 p-8 text-center" style={{ background: "var(--surface)", border: "4px solid var(--green-line)", boxShadow: "8px 8px 0 color-mix(in srgb, var(--green-line) 40%, var(--background))" }}>
                 <h2 className="section-title" style={{ margin: 0 }}>{DEMO.finish.title}</h2>
                 <p className="lead max-w-[56ch]" style={{ margin: 0 }}>{DEMO.finish.text}</p>
                 <div className="flex flex-wrap justify-center gap-4">

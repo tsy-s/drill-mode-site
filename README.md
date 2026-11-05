@@ -410,8 +410,9 @@ flag, or a phrase that isn't in its line.
 ## 12. Colours, fonts, logo and effects
 
 - **Colours and the light theme**:
-  - **Two themes.** The site has a dark theme (the default) and a light theme. Visitors switch
-    with the sun/moon switch in the nav bar, and their choice is remembered on that device.
+  - **Two themes.** The site has a dark and a light theme. It follows the visitor's device setting
+    until they pick with the sun/moon switch in the nav bar; their pick is then remembered on that
+    device and wins over the device setting.
   - **Where the colours live.** Every colour for both themes is in `src/styles/tokens.css`. That
     file is shared with the app, so change both together.
   - **Light palettes.** The light theme has three palettes: **Mist** (the default), **Paper** and
@@ -420,18 +421,28 @@ flag, or a phrase that isn't in its line.
       `"dusk"`.
     - To preview one without changing anything, add `?palette=paper` (or `dusk`) to any address.
       That page then shows that palette in light mode until the browser tab is closed.
-  - **In components, use the tokens, not hex codes:** `var(--teal)` for text and lines,
-    `var(--teal-fill)` for solid buttons and bars, `var(--card)` and `var(--background)` for
-    surfaces. In the light theme the text shades are darker so they stay readable, while the solid
-    fills keep the original neon.
+  - **In components, use the tokens, not hex codes:**
+    - `var(--teal)` for text. In the light theme it's a darker teal, right at the readability floor.
+    - `var(--teal-line)` for borders, lines and pixel shadows. Brighter than the text shade in light.
+    - `var(--teal-fill)` for solid buttons, badges, dots and bars. Always the original neon.
+    - `var(--card)` and `var(--background)` for surfaces.
+  - **Neon in light.** Icons and solid fills stay neon in the light theme, with a dark outline so a
+    pale neon (yellow especially) doesn't fade into the page. It happens automatically (the rules
+    are at the end of `tokens.css`):
+    - Icons: every icon's `<svg>` has `className="px-icon"`. Give the icon a hue
+      (`color={ink(...)}` or `"var(--teal)"`) and it draws in the neon with a one-pixel dark
+      outline. Grey and navy icons get no outline. `px-edge` always outlines one (the medal).
+    - Fills: an inline `background: var(--yellow-fill)` gets a 2px dark edge, unless the element
+      already has a `var(--outline)` border (like `PixelLink`). Anything else can add
+      `className="fill-edge"`.
   - **Content files** still use plain hex colours (`color: "#00ff88"`). Components pass them
-    through `ink()`, `fill()` or `tint()` from `src/lib/color.ts`, which picks the right shade for
-    the theme.
+    through `ink()` (text), `line()` (borders), `fill()` (solid fills) or `tint()` from
+    `src/lib/color.ts`, which picks the right shade for the theme.
   - **Always dark.** The intros, the phone mock-ups and the team house stay dark in both themes,
     on purpose (they're marked `data-theme="dark"`). Character art and Pixi keep their colours.
   - **The check.** `npm run check` includes a theme check (also `npm run check:theme` on its own).
     It flags any palette hex code written into a component, and confirms each light palette keeps
-    text readable.
+    text readable (4.5:1) and borders visible (3:1).
 - **Fonts**: loaded from Google Fonts in `index.html`. *Press Start 2P* (headings, class `font-pixel`),
   *VT323* (taglines, `font-vt`), *Share Tech Mono* (everything else). Sizes are in `src/styles/typography.css`.
   - Press Start 2P always shows in capitals (its lowercase is hard to read), so "Drill Mode" in a
