@@ -46,7 +46,7 @@ export function PixiChat({ title, post, question, replies }: {
         {messages.map((m, i) =>
           m.from === "pixi" ? (
             <div key={i} className="flex items-start gap-2" style={{ animation: "rise-in .25s steps(3) both" }}>
-              <div className="flex-shrink-0 mt-1"><MascotHead size={24} /></div>
+              <div className="flex-shrink-0 mt-1"><MascotHead size={20} /></div>
               <div>
                 <div className="text-xs mb-1" style={{ color: "var(--cyan)" }}>{ui.pixi}</div>
                 <div className="bubble is-pixi">{m.text}</div>
@@ -60,7 +60,7 @@ export function PixiChat({ title, post, question, replies }: {
         )}
         {typing && (
           <div className="flex items-center gap-2">
-            <MascotHead size={24} />
+            <MascotHead size={20} />
             <div className="bubble is-pixi typing-dots" aria-label={ui.typing}><span>.</span><span>.</span><span>.</span></div>
           </div>
         )}

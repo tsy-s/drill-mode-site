@@ -172,7 +172,7 @@ export function HouseMock() {
           </div>
         ))}
         <div className="flex items-start gap-2 mt-1">
-          <MascotHead size={22} />
+          <MascotHead size={20} />
           <div className="bubble is-pixi text-[12px]">{m.pixi}</div>
         </div>
       </div>

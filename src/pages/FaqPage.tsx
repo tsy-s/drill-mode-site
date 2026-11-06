@@ -48,7 +48,7 @@ export function FaqPage() {
           <nav className="hidden lg:flex flex-col gap-3 sticky self-start" style={{ top: 104 }} aria-label={ui.faq.categories}>
             {categories.map((c) => (
               <a key={c.slug} href={`#faq-${c.slug}`} className="flex items-center gap-3 text-soft-foreground hover:text-foreground-strong transition-colors">
-                <span style={{ width: 10, height: 10, background: c.color }} /> {c.title}
+                <span style={{ width: 10, height: 10, background: fill(c.color) }} /> {c.title}
               </a>
             ))}
           </nav>

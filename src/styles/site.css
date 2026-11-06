@@ -239,7 +239,9 @@
 }
 .tree-trunk-fill {
   position: absolute; inset: 0 0 auto 0; height: calc(var(--trunk, 0) * 100%);
-  background: linear-gradient(180deg, var(--teal-fill), var(--green-fill) 50%, var(--violet-fill)); box-shadow: 0 0 calc(12px * var(--glow)) color-mix(in srgb, var(--green-line) 40%, transparent);
+  background: linear-gradient(180deg, var(--teal-fill), var(--green-fill) 50%, var(--violet-fill));
+  outline: var(--fill-edge) solid var(--outline); /* the light theme's dark edge, like inline fills */
+  box-shadow: 0 0 calc(12px * var(--glow)) color-mix(in srgb, var(--green-line) 40%, transparent);
 }
 .tree-row { position: relative; display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; }
 .tree-row + .tree-row { margin-top: clamp(32px, 5vw, 56px); }
