@@ -432,6 +432,11 @@ flag, or a phrase that isn't in its line.
     - Icons: every icon's `<svg>` has `className="px-icon"`. Give the icon a hue
       (`color={ink(...)}` or `"var(--teal)"`) and it draws in the neon with a one-pixel dark
       outline. Grey and navy icons get no outline. `px-edge` always outlines one (the medal).
+    - Icon holes: the holes inside an icon (the "in" of LinkedIn, the inside of Instagram) are
+      the svg's first child, `<path className="px-hole" fill="none" d="…" />`. On an outlined
+      icon in light they are filled with paper, so the outline stays on the outside and can't
+      fill small holes. A cut-out that should read dark (a warning's "!", the skull's eyes) is a
+      `px-ink` path. A new icon with enclosed holes needs its `px-hole` path too.
     - Fills: an inline `background: var(--yellow-fill)` gets a 2px dark edge, unless the element
       already has a `var(--outline)` border (like `PixelLink`). Anything else can add
       `className="fill-edge"`.
