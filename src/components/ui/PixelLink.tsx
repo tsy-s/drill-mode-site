@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { fill } from "../../lib/color";
 import { SmartLink } from "./SmartLink";
 
 /**
@@ -26,7 +27,7 @@ export function PixelLink({
       className={`pixel-button ${pad} ${full ? "flex w-full" : "inline-flex"} items-center justify-center gap-2 text-center select-none uppercase`}
       style={{
         fontSize: textSize,
-        backgroundColor: color,
+        backgroundColor: fill(color), // always the neon fill, like PixelButton
         color: textColor,
         border: "4px solid var(--outline)",
         boxShadow: pressed ? "none" : "4px 4px 0px var(--outline)",
