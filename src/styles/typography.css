@@ -13,14 +13,38 @@
   --text-hero: clamp(1.75rem, 6vw, 3.5rem);
 }
 
+/*
+ * Chinese and Tamil: the three pixel fonts have no letters for these scripts, so a Noto font
+ * fills in (downloaded only once the language is picked, by src/i18n/LanguageProvider.tsx).
+ * English words and numbers inside the text keep the pixel fonts.
+ */
+:root:lang(zh) {
+  --font-pixel: 'Press Start 2P', 'Noto Sans SC', sans-serif;
+  --font-vt: 'VT323', 'Noto Sans SC', sans-serif;
+  --font-mono: 'Share Tech Mono', 'Noto Sans SC', sans-serif;
+}
+:root:lang(ta) {
+  --font-pixel: 'Press Start 2P', 'Noto Sans Tamil', sans-serif;
+  --font-vt: 'VT323', 'Noto Sans Tamil', sans-serif;
+  --font-mono: 'Share Tech Mono', 'Noto Sans Tamil', sans-serif;
+}
+/* These scripts read better without the wide pixel letter-spacing, and a touch smaller in headings. */
+:root:lang(zh) .font-pixel, :root:lang(zh) .section-title, :root:lang(zh) .eyebrow,
+:root:lang(ta) .font-pixel, :root:lang(ta) .section-title, :root:lang(ta) .eyebrow { letter-spacing: 0.02em; }
+:root:lang(ta) .section-title { font-size: calc(var(--text-display) * 0.9); }
+
 body {
   font-family: var(--font-mono);
   font-size: var(--text-body);
   line-height: 1.6;
 }
 
-/* Press Start 2P: the chunky arcade font used for headings and the wordmark. */
-.font-pixel { font-family: var(--font-pixel); letter-spacing: 0.04em; line-height: 1.6; }
+/*
+ * Press Start 2P: the chunky arcade font used for headings and the wordmark.
+ * Always in capitals: its lowercase letters are hard to read, and "DRILL MODE" then matches
+ * the logo. Write content in normal sentence case; screen readers still read it that way.
+ */
+.font-pixel { font-family: var(--font-pixel); letter-spacing: 0.04em; line-height: 1.6; text-transform: uppercase; }
 /* VT323: the tall terminal font used for taglines. */
 .font-vt { font-family: var(--font-vt); letter-spacing: 0.02em; line-height: 1.15; }
 /* Share Tech Mono: body text, buttons and labels (the default). */
@@ -41,6 +65,7 @@ body {
   font-size: var(--text-display);
   line-height: 1.6;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .lead {

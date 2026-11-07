@@ -5,8 +5,9 @@ import { ProductCardSection } from "../components/home/ProductCardSection";
 import { StatsSection } from "../components/home/StatsSection";
 import { HomeIntro } from "../components/intro/HomeIntro";
 import { CtaBand } from "../components/ui/CtaBand";
-import { HOME } from "../content/home";
+import { HOME as HOME_EN } from "../content/home";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useContent } from "../i18n/content";
 
 /**
  * HOME PAGE. All of its text is in src/content/home.ts.
@@ -14,6 +15,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
  */
 export function HomePage() {
   usePageMeta("");
+  const HOME = useContent(HOME_EN);
   return (
     <>
       <HomeIntro startId="start" />

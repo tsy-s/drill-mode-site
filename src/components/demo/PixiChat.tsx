@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { UI } from "../../content/site";
+import { useContent } from "../../i18n/content";
 import { MascotHead } from "../brand/MascotHead";
 import { IconChat } from "../icons";
 
@@ -12,6 +14,7 @@ type Message = { from: "pixi" | "you"; text: string };
 export function PixiChat({ title, post, question, replies }: {
   title: string; post: string; question: string; replies: { label: string; reply: string }[];
 }) {
+  const ui = useContent(UI).chat;
   const [messages, setMessages] = useState<Message[]>([]);
   const [typing, setTyping] = useState(true);
   const [answered, setAnswered] = useState(false);
@@ -35,17 +38,17 @@ export function PixiChat({ title, post, question, replies }: {
   const showReplies = !answered && !typing && messages.length >= (question ? 2 : 1) && replies.length > 0;
 
   return (
-    <div className="flex flex-col" style={{ background: "#0a0e1a", border: "3px solid #344762" }}>
-      <div className="flex items-center gap-2 px-4 py-2 text-sm" style={{ background: "#111827", borderBottom: "3px solid #344762", color: "#00d4ff" }}>
-        <IconChat size={14} color="#00d4ff" /> {title}
+    <div className="flex flex-col" style={{ background: "var(--background)", border: "3px solid var(--border-strong)" }}>
+      <div className="flex items-center gap-2 px-4 py-2 text-sm" style={{ background: "var(--card)", borderBottom: "3px solid var(--border-strong)", color: "var(--cyan)" }}>
+        <IconChat size={14} color="var(--cyan)" /> {title}
       </div>
       <div className="flex flex-col gap-3 p-4" aria-live="polite">
         {messages.map((m, i) =>
           m.from === "pixi" ? (
             <div key={i} className="flex items-start gap-2" style={{ animation: "rise-in .25s steps(3) both" }}>
-              <div className="flex-shrink-0 mt-1"><MascotHead size={24} /></div>
+              <div className="flex-shrink-0 mt-1"><MascotHead size={20} /></div>
               <div>
-                <div className="text-xs mb-1" style={{ color: "#00d4ff" }}>PIXI</div>
+                <div className="text-xs mb-1" style={{ color: "var(--cyan)" }}>{ui.pixi}</div>
                 <div className="bubble is-pixi">{m.text}</div>
               </div>
             </div>
@@ -57,14 +60,14 @@ export function PixiChat({ title, post, question, replies }: {
         )}
         {typing && (
           <div className="flex items-center gap-2">
-            <MascotHead size={24} />
-            <div className="bubble is-pixi typing-dots" aria-label="Pixi is typing"><span>.</span><span>.</span><span>.</span></div>
+            <MascotHead size={20} />
+            <div className="bubble is-pixi typing-dots" aria-label={ui.typing}><span>.</span><span>.</span><span>.</span></div>
           </div>
         )}
         {showReplies && (
           <div className="flex flex-wrap justify-end gap-2 pt-1">
             {replies.map((r) => (
-              <button key={r.label} type="button" onClick={() => reply(r)} className="px-3 py-2 text-sm cursor-pointer" style={{ background: "#10251d", color: "#b8ffd9", border: "2px solid #00aa66" }}>
+              <button key={r.label} type="button" onClick={() => reply(r)} className="px-3 py-2 text-sm cursor-pointer" style={{ background: "color-mix(in srgb, var(--green) 12%, var(--background))", color: "color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong))", border: "2px solid var(--green-line)" }}>
                 {r.label}
               </button>
             ))}

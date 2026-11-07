@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 import { PRODUCT } from "../../content/product";
+import { UI } from "../../content/site";
+import { useContent } from "../../i18n/content";
 import { PixelMascot } from "../avatars/PixelMascot";
 import { GlitchText } from "../brand/GlitchText";
 import { IconArrow } from "../icons";
@@ -18,15 +20,17 @@ const PIXI_AT = 2100;
 const TITLE_AT = 2900;
 
 export function ProductIntro({ startId }: { startId: string }) {
+  const intro = useContent(PRODUCT).intro;
+  const ui = useContent(UI);
   return (
-    <IntroShell duration={4200} flashAt={TITLE_AT} skipLabel={PRODUCT.intro.skip} label="Product intro">
+    <IntroShell id="product" startId={startId} duration={4200} flashAt={TITLE_AT} skipLabel={intro.skip} label={ui.intro.product}>
       {({ done }) => <Stage done={done} startId={startId} />}
     </IntroShell>
   );
 }
 
 function Stage({ done, startId }: { done: boolean; startId: string }) {
-  const intro = PRODUCT.intro;
+  const intro = useContent(PRODUCT).intro;
   const revealed = useAfter(TITLE_AT, done);
   const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 

@@ -1,51 +1,51 @@
 /*
- * Colour tokens, copied from the Drill Mode app (huawei-2026/src/styles/theme.css).
- * Change a colour here and every Tailwind class that uses it (bg-primary, text-muted-foreground,
- * border-border, …) follows. Hard-coded hex values in components use the same palette:
+ * Colour tokens for both themes live in tokens.css (shared with the app). This file makes them
+ * available as Tailwind classes: bg-background, text-muted-foreground, border-border,
+ * text-green (ink), bg-green-fill (neon fill), bg-green/15 (a pale tint), and so on.
  *
- *   #00ff88 neon green   #4ecdc4 teal      #ffe66d yellow   #ff2d55 red
- *   #ff6b35 orange       #c77dff violet    #ff71c5 pink     #00d4ff cyan
- *   #0a0e1a ink/bg       #111827 card      #1a2340 panel    #2a3a5c border
- *   #e8f4f8 text         #9bb0c8 soft text #6b8ba4 muted text
+ * In components, use the tokens rather than hex codes, so both themes work:
+ *   style={{ color: "var(--teal)", background: "var(--card)" }}
+ * Colours that come from content files (like `accent: "#ff6b35"`) go through ink(), fill()
+ * or tint() from src/lib/color.ts. Character art, Pixi, furniture and rooms keep their own
+ * colours in both themes.
  */
+@import './tokens.css';
+
+/*
+ * The page behind the sections (set on <body> in index.html): a shade darker than --background
+ * in the dark theme, and --background itself in light, because the light text colours are
+ * tuned to be readable on it.
+ */
+:root, [data-theme="dark"] { --page: var(--page-backdrop); }
+[data-theme="light"] { --page: var(--background); }
+
 :root {
   --font-size: 16px;
-  --background: #0a0e1a;
-  --foreground: #e8f4f8;
-  --card: #111827;
-  --card-foreground: #e8f4f8;
-  --primary: #00ff88;
-  --primary-foreground: #0a0e1a;
-  --secondary: #1a2340;
-  --secondary-foreground: #e8f4f8;
-  --muted: #1a2340;
-  --muted-foreground: #6b8ba4;
-  --soft-foreground: #9bb0c8;
-  --accent: #ff6b35;
-  --accent-foreground: #0a0e1a;
-  --destructive: #ff2d55;
-  --destructive-foreground: #ffffff;
-  --border: #2a3a5c;
-  --input: #1a2340;
-  --ring: #00ff88;
-  --teal: #4ecdc4;
-  --yellow: #ffe66d;
-  --violet: #c77dff;
-  --pink: #ff71c5;
-  --cyan: #00d4ff;
+  --primary: var(--green-fill);
+  --primary-foreground: var(--on-fill);
+  --accent: var(--orange-fill);
+  --accent-foreground: var(--on-fill);
+  --destructive: var(--red-fill);
+  --destructive-foreground: var(--on-danger);
+  --input: var(--secondary);
+  --ring: var(--green);
   --radius: 0rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-strong: var(--foreground-strong);
   --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
+  --color-card-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-deep: var(--surface-deep);
+  --color-page-backdrop: var(--page-backdrop);
+  --color-muted: var(--secondary);
   --color-muted-foreground: var(--muted-foreground);
   --color-soft-foreground: var(--soft-foreground);
   --color-accent: var(--accent);
@@ -53,13 +53,29 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-overlay: var(--overlay);
+  --color-scrim: var(--scrim);
+  --color-outline: var(--outline);
+  --color-on-fill: var(--on-fill);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-teal: var(--teal);
+  --color-green: var(--green);
   --color-yellow: var(--yellow);
+  --color-teal: var(--teal);
+  --color-red: var(--red);
+  --color-orange: var(--orange);
   --color-violet: var(--violet);
-  --color-pink: var(--pink);
   --color-cyan: var(--cyan);
+  --color-pink: var(--pink);
+  --color-green-fill: var(--green-fill);
+  --color-yellow-fill: var(--yellow-fill);
+  --color-teal-fill: var(--teal-fill);
+  --color-red-fill: var(--red-fill);
+  --color-orange-fill: var(--orange-fill);
+  --color-violet-fill: var(--violet-fill);
+  --color-cyan-fill: var(--cyan-fill);
+  --color-pink-fill: var(--pink-fill);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

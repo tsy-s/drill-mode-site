@@ -9,30 +9,30 @@
 @layer base {
   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-  ::selection { background: #00ff8855; color: #ffffff; }
-  :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+  ::selection { background: color-mix(in srgb, var(--green-fill) 33%, transparent); color: var(--foreground-strong); }
+  :focus-visible { outline: 3px solid var(--yellow-line); outline-offset: 3px; }
   a { color: inherit; text-decoration: none; }
 
   ::-webkit-scrollbar { width: 12px; height: 12px; }
-  ::-webkit-scrollbar-track { background: #05080f; }
-  ::-webkit-scrollbar-thumb { background: #2a3a5c; border: 3px solid #05080f; }
-  ::-webkit-scrollbar-thumb:hover { background: #3a4f78; }
+  ::-webkit-scrollbar-track { background: var(--page-backdrop); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border: 3px solid var(--page-backdrop); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 }
 
 .container-site { width: 100%; max-width: 1160px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
 .section { padding-block: clamp(64px, 10vw, 120px); position: relative; }
 
-.skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--yellow); color: #0a0e1a; padding: 8px 12px; }
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--yellow); color: var(--on-fill); padding: 8px 12px; }
 .skip-link:focus { top: 12px; }
 
 /* Hard pixel shadow used on cards and panels (the app never uses blurred shadows). */
-.pixel-card { background: var(--card); border: 4px solid var(--border); box-shadow: 6px 6px 0 #05080f; }
+.pixel-card { background: var(--card); border: 4px solid var(--border); box-shadow: 6px 6px 0 var(--shadow-pixel); }
 .pixel-chip {
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
   border: 2px solid currentColor; font-size: var(--text-label); line-height: 1.4; text-transform: uppercase;
 }
-.text-link { color: var(--teal); border-bottom: 2px solid #4ecdc455; transition: border-color .15s, color .15s; }
-.text-link:hover { color: #ffffff; border-color: var(--teal); }
+.text-link { color: var(--teal); border-bottom: 2px solid color-mix(in srgb, var(--teal-line) 33%, transparent); transition: border-color .15s, color .15s; }
+.text-link:hover { color: var(--foreground-strong); border-color: var(--teal-line); }
 
 /* ── KEYFRAMES ────────────────────────────────────────────────────────── */
 /* From the app (huawei-2026/src/app/App.tsx). */
@@ -57,17 +57,17 @@
  */
 .glitch {
   position: relative; display: inline-block;
-  color: var(--glitch-color, #00ff88);
-  text-shadow: 0.14em 0.14em 0 var(--glitch-shadow, #006633), 0 0 0.7em rgba(0, 255, 136, 0.45);
+  color: var(--glitch-color, var(--green));
+  text-shadow: 0.14em 0.14em 0 var(--glitch-shadow, color-mix(in srgb, var(--green) 40%, var(--background))), 0 0 calc(0.7em * var(--glow)) color-mix(in srgb, var(--green) 45%, transparent);
   white-space: pre-line;
 }
 .glitch::before, .glitch::after {
   content: attr(data-text); position: absolute; inset: 0; white-space: pre-line;
   opacity: 0; pointer-events: none; text-shadow: none;
 }
-.glitch::before { color: #ff2d55; }
-.glitch::after { color: #4ecdc4; }
-.glitch.is-glitching { text-shadow: 0.14em 0 #ff2d55, -0.14em 0 #4ecdc4; transform: translateX(1px) skewX(-4deg); }
+.glitch::before { color: var(--red); }
+.glitch::after { color: var(--teal); }
+.glitch.is-glitching { text-shadow: 0.14em 0 var(--red), -0.14em 0 var(--teal); transform: translateX(1px) skewX(-4deg); }
 .glitch.is-glitching::before { opacity: .9; animation: glitch-slice-a 120ms steps(2) infinite; }
 .glitch.is-glitching::after { opacity: .9; animation: glitch-slice-b 120ms steps(2) infinite; }
 .glitch.is-bursting { animation: glitch-burst 900ms steps(1) both; }
@@ -86,11 +86,11 @@
 }
 @keyframes glitch-burst {
   0%   { opacity: 0; transform: scale(1.3) skewX(20deg); filter: blur(4px); }
-  8%   { opacity: 1; transform: scale(1.05) skewX(-12deg); filter: none; text-shadow: 0.2em 0 #ff2d55, -0.2em 0 #4ecdc4; }
+  8%   { opacity: 1; transform: scale(1.05) skewX(-12deg); filter: none; text-shadow: 0.2em 0 var(--red), -0.2em 0 var(--teal); }
   16%  { opacity: .2; transform: translateX(-0.2em); }
-  24%  { opacity: 1; transform: translateX(0.15em) skewX(8deg); text-shadow: -0.18em 0 #ff2d55, 0.18em 0 #4ecdc4; }
+  24%  { opacity: 1; transform: translateX(0.15em) skewX(8deg); text-shadow: -0.18em 0 var(--red), 0.18em 0 var(--teal); }
   36%  { opacity: .6; transform: scaleY(.6); }
-  44%  { opacity: 1; transform: none; text-shadow: 0.1em 0 #ff2d55, -0.1em 0 #4ecdc4; }
+  44%  { opacity: 1; transform: none; text-shadow: 0.1em 0 var(--red), -0.1em 0 var(--teal); }
   60%  { transform: translateX(-0.06em) skewX(-3deg); }
   72%  { transform: none; }
   100% { opacity: 1; transform: none; }
@@ -98,16 +98,16 @@
 
 /* ── STARS + SCANLINES ────────────────────────────────────────────────── */
 .stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.stars span { position: absolute; background: #ffffff; }
+.stars span { position: absolute; background: var(--star); }
 .scanlines {
   position: fixed; inset: 0; z-index: 60; pointer-events: none;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scanline) 2px, var(--scanline) 4px);
 }
 
 /* ── NAV BAR ──────────────────────────────────────────────────────────── */
 .site-nav {
   position: fixed; inset: 0 0 auto 0; z-index: 50; height: 72px;
-  background: rgba(10, 14, 26, 0.92); backdrop-filter: blur(6px);
+  background: var(--overlay); backdrop-filter: blur(6px);
   border-bottom: 4px solid var(--border);
   transition: transform .35s steps(6), opacity .35s;
 }
@@ -120,9 +120,9 @@
   content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 4px;
   background: var(--link-accent, var(--primary)); transform: scaleX(0); transform-origin: left; transition: transform .2s steps(4);
 }
-.nav-link:hover, .nav-link.is-active { color: #ffffff; }
+.nav-link:hover, .nav-link.is-active { color: var(--foreground-strong); }
 .nav-link:hover::after, .nav-link.is-active::after { transform: scaleX(1); }
-.mobile-menu { position: fixed; inset: 72px 0 auto 0; z-index: 49; background: #0a0e1a; border-bottom: 4px solid var(--border); animation: rise-in .2s steps(4) both; }
+.mobile-menu { position: fixed; inset: 72px 0 auto 0; z-index: 49; max-height: calc(100svh - 72px); overflow-y: auto; background: var(--background); border-bottom: 4px solid var(--border); animation: rise-in .2s steps(4) both; }
 
 /* ── CINEMATIC INTRO ──────────────────────────────────────────────────── */
 /*
@@ -132,7 +132,7 @@
 .intro {
   --p: 0;
   position: relative; height: 100svh; min-height: 560px; overflow: hidden;
-  background: radial-gradient(ellipse at 50% 45%, #0f1a33 0%, #0a0e1a 45%, #03050a 100%);
+  background: radial-gradient(ellipse at 50% 45%, #0f1a33 0%, var(--background) 45%, #03050a 100%);
   isolation: isolate;
 }
 .intro-stage {
@@ -150,7 +150,7 @@
 /* Vignette and a faint CRT flicker over the whole intro. */
 .intro::after {
   content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
+  background: radial-gradient(ellipse at center, transparent 55%, var(--scrim) 100%);
   animation: crt-flicker 4s steps(1) infinite;
 }
 @keyframes crt-flicker { 0%, 100% { opacity: 1; } 47% { opacity: .92; } 48% { opacity: 1; } 82% { opacity: .95; } 83% { opacity: 1; } }
@@ -235,24 +235,26 @@
 .tree { position: relative; }
 .tree-trunk {
   position: absolute; top: 0; bottom: 0; left: 50%; width: 6px; transform: translateX(-50%);
-  background: repeating-linear-gradient(180deg, #2a3a5c 0 12px, transparent 12px 18px);
+  background: repeating-linear-gradient(180deg, var(--border) 0 12px, transparent 12px 18px);
 }
 .tree-trunk-fill {
   position: absolute; inset: 0 0 auto 0; height: calc(var(--trunk, 0) * 100%);
-  background: linear-gradient(180deg, #4ecdc4, #00ff88 50%, #c77dff); box-shadow: 0 0 12px #00ff8866;
+  background: linear-gradient(180deg, var(--teal-fill), var(--green-fill) 50%, var(--violet-fill));
+  outline: var(--fill-edge) solid var(--outline); /* the light theme's dark edge, like inline fills */
+  box-shadow: 0 0 calc(12px * var(--glow)) color-mix(in srgb, var(--green-line) 40%, transparent);
 }
 .tree-row { position: relative; display: grid; grid-template-columns: 1fr 72px 1fr; align-items: center; }
 .tree-row + .tree-row { margin-top: clamp(32px, 5vw, 56px); }
 /* Pixi's head rides down the trunk as you scroll. */
-.tree-rider { position: absolute; left: 50%; top: calc(var(--trunk, 0) * 100%); transform: translate(-50%, -50%); z-index: 3; filter: drop-shadow(0 0 8px #4ecdc4); }
+.tree-rider { position: absolute; left: 50%; top: calc(var(--trunk, 0) * 100%); transform: translate(-50%, -50%); z-index: 3; filter: drop-shadow(0 0 calc(8px * var(--glow)) var(--teal)); }
 .tree-node {
-  grid-column: 2; justify-self: center; width: 22px; height: 22px; background: #0a0e1a;
-  border: 4px solid var(--accent-color, #00ff88); box-shadow: 0 0 0 4px #0a0e1a, 0 0 14px var(--accent-color, #00ff88);
+  grid-column: 2; justify-self: center; width: 22px; height: 22px; background: var(--background);
+  border: 4px solid var(--accent-color, var(--green-line)); box-shadow: 0 0 0 4px var(--outline), 0 0 calc(14px * var(--glow)) var(--accent-color, var(--green-line));
   position: relative; z-index: 2;
 }
 .tree-branch {
-  position: absolute; top: 50%; height: 4px; background: var(--accent-color, #00ff88);
-  box-shadow: 0 0 10px var(--accent-color, #00ff88); transform: scaleX(0); transition: transform .5s steps(8);
+  position: absolute; top: 50%; height: 4px; background: var(--accent-color, var(--green-fill));
+  box-shadow: 0 0 calc(10px * var(--glow)) var(--accent-color, var(--green-line)); transform: scaleX(0); transition: transform .5s steps(8);
 }
 .tree-row.is-left .tree-branch { right: 50%; width: 36px; transform-origin: right; }
 .tree-row.is-right .tree-branch { left: 50%; width: 36px; transform-origin: left; }
@@ -275,28 +277,28 @@
 /* ── PHONE MOCK-UP ────────────────────────────────────────────────────── */
 /* The app's phone frame (huawei-2026/src/app/components/layout/PhoneFrame.tsx), scaled down. */
 .phone {
-  position: relative; width: min(100%, 340px); background: #0a0e1a; border: 6px solid #2a3a5c;
-  box-shadow: 8px 8px 0 #000, 0 0 40px rgba(0, 255, 136, 0.15); overflow: hidden;
+  position: relative; width: min(100%, 340px); background: var(--background); border: 6px solid var(--border);
+  box-shadow: 8px 8px 0 var(--shadow-pixel), 0 0 calc(40px * var(--glow)) color-mix(in srgb, var(--green-line) 15%, transparent); overflow: hidden;
 }
-.phone-status { display: flex; justify-content: space-between; padding: 6px 12px; font-size: 12px; color: #6b8ba4; border-bottom: 2px solid #1a2340; }
-.bubble { border: 3px solid #2a3a5c; background: #1a2340; padding: 10px 12px; line-height: 1.6; }
-.bubble.is-caller { border-color: #ff6b35; }
-.bubble.is-you { border-color: #00ff88; background: #10251d; color: #b8ffd9; }
-.bubble.is-pixi { border-color: #00d4ff; background: #0b1c2b; }
+.phone-status { display: flex; justify-content: space-between; padding: 6px 12px; font-size: 12px; color: var(--muted-foreground); border-bottom: 2px solid var(--secondary); }
+.bubble { border: 3px solid var(--border); background: var(--secondary); padding: 10px 12px; line-height: 1.6; }
+.bubble.is-caller { border-color: var(--orange-line); }
+.bubble.is-you { border-color: var(--green-line); background: color-mix(in srgb, var(--green) 12%, var(--background)); color: color-mix(in srgb, var(--green-soft) 60%, var(--foreground-strong)); }
+.bubble.is-pixi { border-color: var(--cyan-line); background: color-mix(in srgb, var(--cyan) 10%, var(--background)); }
 .typing-dots span { display: inline-block; animation: blink 1s steps(1) infinite; }
 .typing-dots span:nth-child(2) { animation-delay: .2s; }
 .typing-dots span:nth-child(3) { animation-delay: .4s; }
 
 /* Red-flag phrases in demo messages. */
 .flag-mark {
-  background: #ff2d5522; color: #ff8095; border-bottom: 2px solid #ff2d55; padding: 0 2px; cursor: help;
+  background: color-mix(in srgb, var(--red-fill) 13%, transparent); color: var(--red-soft); border-bottom: 2px solid var(--red-line); padding: 0 2px; cursor: help;
 }
-.flag-mark.is-safe { background: #00ff8818; color: #7dffbf; border-color: #00ff88; }
+.flag-mark.is-safe { background: color-mix(in srgb, var(--green-fill) 9%, transparent); color: var(--green-soft); border-color: var(--green-line); }
 
 /* ── FAQ ACCORDION ────────────────────────────────────────────────────── */
 .faq-item { border: 3px solid var(--border); background: var(--card); }
 .faq-item + .faq-item { margin-top: 12px; }
-.faq-item[open] { border-color: var(--teal); box-shadow: 4px 4px 0 #4ecdc4; }
+.faq-item[open] { border-color: var(--teal-line); box-shadow: 4px 4px 0 var(--teal-line); }
 .faq-item summary { list-style: none; cursor: pointer; display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-chevron { transition: transform .2s steps(3); flex-shrink: 0; }
@@ -305,10 +307,10 @@
 /* ── FORMS ────────────────────────────────────────────────────────────── */
 .field-label { display: block; margin-bottom: 6px; font-size: var(--text-label); color: var(--soft-foreground); text-transform: uppercase; letter-spacing: .08em; }
 .field {
-  width: 100%; min-height: 48px; padding: 10px 12px; background: #0a0e1a; color: #e8f4f8;
-  border: 3px solid #344762; font: inherit; font-size: var(--text-body); border-radius: 0;
+  width: 100%; min-height: 48px; padding: 10px 12px; background: var(--background); color: var(--foreground);
+  border: 3px solid var(--border-strong); font: inherit; font-size: var(--text-body); border-radius: 0;
 }
-.field:focus { border-color: var(--teal); outline: none; box-shadow: 4px 4px 0 #4ecdc4; }
+.field:focus { border-color: var(--teal-line); outline: none; box-shadow: 4px 4px 0 var(--teal-line); }
 textarea.field { min-height: 140px; resize: vertical; }
 
 /* ── REDUCED MOTION ───────────────────────────────────────────────────── */

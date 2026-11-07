@@ -1,5 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import type { FeatureVisual as Kind } from "../../content/product";
+import { UI } from "../../content/site";
+import { useContent } from "../../i18n/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { CharacterAvatar } from "../avatars/character";
 import { CharDad } from "../avatars/characters/CharDad";
@@ -8,6 +10,7 @@ import { CharKid } from "../avatars/characters/CharKid";
 import { CharMum } from "../avatars/characters/CharMum";
 import { MascotHead } from "../brand/MascotHead";
 import { IconCoin, IconMedal, IconShield, IconStar } from "../icons";
+import { Flagged } from "../mocks/PhoneMocks";
 import { PixelPhone } from "../mocks/PixelPhone";
 import { RoomScene } from "../room/RoomScene";
 import { XPBar } from "../ui/XPBar";
@@ -18,10 +21,10 @@ import { XPBar } from "../ui/XPBar";
  * an `image` on the feature replaces it with that picture.
  */
 export function FeatureVisual({ kind, image, alt }: { kind: Kind; image?: string; alt: string }) {
-  if (image) return <img src={image} alt={alt} className="w-full object-cover" style={{ border: "3px solid #1a2340" }} />;
+  if (image) return <img src={image} alt={alt} className="w-full object-cover" style={{ border: "3px solid var(--secondary)" }} />;
   const Visual = VISUALS[kind];
   return (
-    <div className="relative overflow-hidden flex items-center justify-center" style={{ height: 176, background: "#0a0e1a", border: "3px solid #1a2340" }} aria-hidden="true">
+    <div className="relative overflow-hidden flex items-center justify-center" style={{ height: 176, background: "var(--background)", border: "3px solid var(--secondary)" }} aria-hidden="true">
       <Visual />
     </div>
   );
@@ -40,23 +43,25 @@ function useFrame() {
 }
 
 function CallVisual() {
+  const v = useContent(UI).visuals.call;
   return (
     <div className="flex items-center gap-4 px-4">
       <PixelPhone size={64} ringing />
       <div className="bubble is-caller text-[13px]" style={{ maxWidth: 200 }}>
-        "This is Officer Tan. Your account is linked to a <mark className="flag-mark">money-laundering case</mark>."
+        <Flagged text={v.text} phrases={v.flags} />
       </div>
     </div>
   );
 }
 
 function QuizVisual() {
+  const v = useContent(UI).visuals.quiz;
   return (
     <div className="flex flex-col gap-2 px-4 w-full max-w-[280px]">
-      <div className="bubble text-[12px]">Your parcel is held. Pay <mark className="flag-mark">$1.99</mark> today: <mark className="flag-mark">parcel-go.example</mark></div>
+      <div className="bubble text-[12px]"><Flagged text={v.text} phrases={v.flags} /></div>
       <div className="grid grid-cols-2 gap-2 text-[11px] text-center">
-        <div className="py-1" style={{ background: "#ff2d55", color: "#fff", border: "3px solid #0a0e1a" }}>SCAM</div>
-        <div className="py-1" style={{ background: "#1a2340", color: "#9bb0c8", border: "3px solid #2a3a5c" }}>SAFE</div>
+        <div className="py-1" style={{ background: "var(--red-fill)", color: "var(--on-danger)", border: "3px solid var(--outline)" }}>{v.scam}</div>
+        <div className="py-1" style={{ background: "var(--secondary)", color: "var(--soft-foreground)", border: "3px solid var(--border)" }}>{v.safe}</div>
       </div>
     </div>
   );
@@ -93,31 +98,33 @@ function HouseVisual() {
 }
 
 function ChatVisual() {
+  const v = useContent(UI).visuals.chat;
   return (
     <div className="flex flex-col gap-2 px-4 w-full max-w-[300px] text-[12px]">
       <div className="flex items-start gap-2">
         <MascotHead size={20} />
-        <div className="bubble is-pixi" style={{ padding: "6px 8px" }}>Dad hung up on the fake bank call straight away 👏</div>
+        <div className="bubble is-pixi" style={{ padding: "6px 8px" }}>{v.pixi1}</div>
       </div>
       <div className="flex items-start gap-2">
         <MascotHead size={20} />
-        <div className="bubble is-pixi" style={{ padding: "6px 8px" }}>Mum, have you ever had a call like this?</div>
+        <div className="bubble is-pixi" style={{ padding: "6px 8px" }}>{v.pixi2}</div>
       </div>
-      <div className="flex justify-end"><div className="bubble is-you" style={{ padding: "6px 8px" }}>Yes! Last month 😅</div></div>
+      <div className="flex justify-end"><div className="bubble is-you" style={{ padding: "6px 8px" }}>{v.reply}</div></div>
     </div>
   );
 }
 
 function RewardsVisual() {
+  const v = useContent(UI).visuals.rewards;
   return (
     <div className="flex flex-col gap-3 px-5 w-full max-w-[280px]">
       <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-2" style={{ color: "#ffe66d" }}><IconCoin size={16} /> PAYDAY SUNDAY</span>
-        <span style={{ color: "#00ff88" }}>+350</span>
+        <span className="flex items-center gap-2" style={{ color: "var(--yellow)" }}><IconCoin size={16} /> {v.payday}</span>
+        <span style={{ color: "var(--green)" }}>+350</span>
       </div>
       <XPBar current={68} max={100} />
       <div className="flex items-center justify-between text-xs text-soft-foreground">
-        <span>LV 4 · SCAM BLOCKER</span>
+        <span>{v.level}</span>
         <span className="flex gap-1"><IconMedal rank={1} size={16} /><IconMedal rank={2} size={16} /><IconStar size={16} /></span>
       </div>
     </div>
@@ -126,16 +133,16 @@ function RewardsVisual() {
 
 function LanguagesVisual() {
   const words = [
-    { code: "EN", word: "Hello", color: "#00ff88" },
-    { code: "中文", word: "你好", color: "#ffe66d" },
-    { code: "BM", word: "Halo", color: "#4ecdc4" },
-    { code: "தமிழ்", word: "வணக்கம்", color: "#c77dff" },
+    { code: "EN", word: "Hello", color: "var(--green)" },
+    { code: "中文", word: "你好", color: "var(--yellow)" },
+    { code: "BM", word: "Halo", color: "var(--teal)" },
+    { code: "தமிழ்", word: "வணக்கம்", color: "var(--violet)" },
   ];
   return (
     <div className="grid grid-cols-2 gap-2 px-4 w-full max-w-[300px]">
       {words.map((w) => (
         <div key={w.code} className="flex items-center justify-between px-2 py-1 text-[13px]" style={{ border: `2px solid ${w.color}`, color: w.color }}>
-          <span>{w.code}</span><span className="text-white">{w.word}</span>
+          <span>{w.code}</span><span className="text-foreground-strong">{w.word}</span>
         </div>
       ))}
     </div>
@@ -143,10 +150,11 @@ function LanguagesVisual() {
 }
 
 function SafetyVisual() {
+  const safe = useContent(UI).visuals.safety;
   return (
     <div className="flex flex-col items-center gap-2">
-      <div style={{ filter: "drop-shadow(0 0 10px rgba(0,255,136,0.8))" }}><IconShield size={56} color="#00ff88" /></div>
-      <div className="font-pixel" style={{ fontSize: 11, color: "#00ff88" }}>SAFE</div>
+      <div style={{ filter: "drop-shadow(0 0 calc(10px * var(--glow)) color-mix(in srgb, var(--green) 80%, transparent))" }}><IconShield size={56} color="var(--green)" /></div>
+      <div className="font-pixel" style={{ fontSize: 11, color: "var(--green)" }}>{safe}</div>
     </div>
   );
 }

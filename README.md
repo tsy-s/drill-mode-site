@@ -16,21 +16,22 @@ changing some words, and saving. This guide explains how.
 2. [How the site is organised](#2-how-the-site-is-organised)
 3. [Find the file for any page](#3-find-the-file-for-any-page)
 4. [Editing text](#4-editing-text)
-5. [Links](#5-links)
-6. [Images and other media](#6-images-and-other-media)
-7. [Icons](#7-icons)
-8. [The team page (rooms, avatars, photos)](#8-the-team-page)
-9. [Trusted brands carousel](#9-trusted-brands-carousel)
-10. [The Try Demo drills](#10-the-try-demo-drills)
-11. [Colours, fonts, logo and effects](#11-colours-fonts-logo-and-effects)
-12. [The contact form](#12-the-contact-form)
-13. [Adding, removing or reordering sections and pages](#13-adding-removing-or-reordering-sections-and-pages)
-14. [Where the components came from](#14-where-the-components-came-from)
-15. [Checking your changes](#15-checking-your-changes)
-16. [Publishing the site](#16-publishing-the-site)
-17. [Before launch checklist](#17-before-launch-checklist)
-18. [Moving to a CMS later](#18-moving-to-a-cms-later)
-19. [Troubleshooting](#19-troubleshooting)
+5. [Translations (中文, BM, தமிழ்)](#5-translations)
+6. [Links](#6-links)
+7. [Images and other media](#7-images-and-other-media)
+8. [Icons](#8-icons)
+9. [The team page (rooms, avatars, photos)](#9-the-team-page)
+10. [Trusted brands carousel](#10-trusted-brands-carousel)
+11. [The Try Demo drills](#11-the-try-demo-drills)
+12. [Colours, fonts, logo and effects](#12-colours-fonts-logo-and-effects)
+13. [The contact form](#13-the-contact-form)
+14. [Adding, removing or reordering sections and pages](#14-adding-removing-or-reordering-sections-and-pages)
+15. [Where the components came from](#15-where-the-components-came-from)
+16. [Checking your changes](#16-checking-your-changes)
+17. [Publishing the site](#17-publishing-the-site)
+18. [Before launch checklist](#18-before-launch-checklist)
+19. [Moving to a CMS later](#19-moving-to-a-cms-later)
+20. [Troubleshooting](#20-troubleshooting)
 
 ---
 
@@ -53,8 +54,8 @@ Other commands:
 
 | Command | What it does |
 |---|---|
-| `npm run check` | Safety net after editing: renders every page, checks every image path, and checks the demo scripts. **Run this before publishing.** |
-| `npm run placeholders` | Lists every line still marked `PLACEHOLDER` (fake names, `#` links, the example email…). |
+| `npm run check` | Safety net after editing: renders every page in every language, checks every image path, checks the demo scripts and highlighted phrases, and checks that the translation files line up with the English. **Run this before publishing.** |
+| `npm run placeholders` | Lists every line still marked `PLACEHOLDER` (fake names, `#` links, the example email…) and every translation file still marked `DRAFT TRANSLATION`. |
 | `npm run build` | Builds the finished site into `dist/` (this is what gets published). It also fails if any content file has a typo the checker can spot. |
 | `npm run preview` | Serves the built `dist/` folder locally so you can look at it before publishing. |
 
@@ -80,7 +81,9 @@ drill-mode-site/
 │   │   ├── faq.ts            ← FAQ page
 │   │   ├── contact.ts        ← Contact page + how the form sends messages
 │   │   ├── demo.ts           ← Try Demo page: the quiz messages and the scam-call script
-│   │   └── legal.ts          ← Privacy Policy and Terms of Use
+│   │   ├── legal.ts          ← Privacy Policy and Terms of Use
+│   │   └── locales/          ← translations: zh/ (中文), ms/ (Bahasa Melayu), ta/ (தமிழ்)
+│   ├── i18n/                 ← the language picker's memory and how translations are applied
 │   ├── pages/                ← one file per page; lists that page's sections in order
 │   ├── components/           ← the building blocks (sections, Pixi, icons, rooms, phone mock-ups…)
 │   ├── styles/               ← colours (theme.css), type sizes (typography.css), effects (site.css)
@@ -108,7 +111,8 @@ drill-mode-site/
 | Privacy Policy | `/privacy` | `src/content/legal.ts` → `PRIVACY` | `src/pages/LegalPage.tsx` |
 | Terms of Use | `/terms` | `src/content/legal.ts` → `TERMS` | `src/pages/LegalPage.tsx` |
 | Nav bar + footer (every page) | | `src/content/site.ts` | `src/components/layout/` |
-| "Page not found" | any other address | `src/pages/NotFoundPage.tsx` | same file |
+| "Page not found" | any other address | `src/content/site.ts` → `UI.notFound` | `src/pages/NotFoundPage.tsx` |
+| Translations of any page | | `src/content/locales/<language>/` (see [§5](#5-translations)) | |
 
 Inside each content file, the sections appear **in the same order as on the page**, and each
 one has a short comment saying what it is. Search the file for a few words you can see on the
@@ -161,12 +165,64 @@ To add a whole new category, copy a `{ title: …, color: …, items: [ … ] }`
 **Change the footer.** In `src/content/site.ts`: `FOOTER_COLUMNS` (link columns), `FOOTER_LEGAL`
 (the small links at the bottom), `SITE.oneLiner` and `SITE.copyright`.
 
-**Change a page's browser-tab title.** Each page calls `usePageMeta("Title", "description")` near
-the top of its file in `src/pages/`. The site name is added automatically.
+**Change a page's browser-tab title.** The titles are in `UI.pageTitles` at the bottom of
+`src/content/site.ts` (the Home page uses `SITE.tagline`). The site name is added automatically.
 
 ---
 
-## 5. Links
+## 5. Translations
+
+Visitors pick a language with the globe button in the nav bar (inside the ☰ menu on phones), and
+the site remembers it on that device. The languages are the app's four: English, 中文, Bahasa
+Melayu and தமிழ்.
+
+**English is the original.** Each translation lives in `src/content/locales/<code>/` (`zh` = 中文,
+`ms` = Bahasa Melayu, `ta` = தமிழ்), with one file per page. Each file is laid out exactly like
+the English one, but holds only the words:
+
+```ts
+// src/content/locales/ms/home.ts
+export const HOME: Translation<typeof HOME_EN> = {
+  hero: {
+    title: "Bina refleks sebelum panggilan sebenar tiba.",
+```
+
+- **Anything a translation leaves out shows in English.** After adding or changing English text,
+  every page still works; the new words just appear in English until someone translates them.
+- **Lists are matched by position.** If you add, remove or reorder items in an English list (FAQ
+  questions, feature points…), make the same change in each language's list. `npm run check`
+  flags a translated list that is longer than the English one.
+- **Only words go in translation files.** Colours, icons, links and other settings always come
+  from the English file.
+- **Highlighted phrases must match.** In the demo, each quiz clue's `text` must appear word for
+  word in the translated message, and each call `flags` phrase in the translated line. The same
+  goes for the `flags` lists in `UI.mocks` and `UI.visuals`. `npm run check` checks every language.
+- **Quiz answers must match too:** each message's `correctAction` must be exactly one of its
+  translated `actions`, and `QUIZ.cautiousAction` must match the "ask family" button word for word.
+- **Words in `{curly brackets}`** (like `{query}` or `{xp}`) are filled in by the site. Keep them as they are.
+- **The site's own small words** (button labels, screen-reader labels, the text inside the phone
+  mock-ups) are in `UI` at the bottom of `src/content/site.ts`, and translated in each
+  language's `site.ts`.
+- **Kept in English on purpose:**
+  - the brand name and the DRILL MODE wordmark
+  - the Product intro's terminal lines
+  - placeholder team members and partner names
+  - the Privacy Policy and Terms. Visitors in other languages see a note saying those pages are
+    English-only until reviewed translations exist.
+- **Draft status:** every translation file starts with a `// DRAFT TRANSLATION` line. Delete it
+  once a native speaker has reviewed the file. `npm run placeholders` lists the files still marked.
+- **Fonts:** the pixel fonts have no Chinese or Tamil letters, so those languages borrow Noto Sans
+  SC and Noto Sans Tamil (see `src/styles/typography.css`). They're downloaded only when someone
+  picks that language.
+
+**To translate a new content object** (for example a new page's `CAREERS`): export it from each
+language's `index.ts` under the same name, and add it to `SOURCES` in
+`src/content/locales/index.ts`. Components read content with `const careers = useContent(CAREERS)`,
+so it follows the visitor's language.
+
+---
+
+## 6. Links
 
 Anywhere a content file has `to:`, `href:` or `link:`, you can use:
 
@@ -183,7 +239,7 @@ Social links with an empty `href: ""` are hidden. `"#"` keeps them visible but g
 
 ---
 
-## 6. Images and other media
+## 7. Images and other media
 
 **Put image files in `public/`**, then point to them with a path that **starts with `/`** and
 **leaves out `public`**:
@@ -220,7 +276,7 @@ press `EXPORT TO SVG`), and save the file into `public/`.
 
 ---
 
-## 7. Icons
+## 8. Icons
 
 All icons are pixel-art components, so they stay crisp at any size and can be any colour.
 
@@ -253,7 +309,7 @@ have already been added to the asset exporter this way.
 
 ---
 
-## 8. The team page
+## 9. The team page
 
 Everything is in `src/content/about.ts`, in the `TEAM` list at the bottom. Each person is one
 `{ … }` block, top floor first. Rooms alternate the photo side automatically.
@@ -297,7 +353,7 @@ want them in the house, and edit it. **Remove someone:** delete their block.
 
 ---
 
-## 9. Trusted brands carousel
+## 10. Trusted brands carousel
 
 In `src/content/home.ts` → `brands`:
 
@@ -315,7 +371,7 @@ organisations named in the app's pitch materials are outreach targets, not partn
 
 ---
 
-## 10. The Try Demo drills
+## 11. The Try Demo drills
 
 Both drills run entirely in the visitor's browser. Nothing is sent anywhere. All their text is
 in `src/content/demo.ts`.
@@ -351,14 +407,52 @@ flag, or a phrase that isn't in its line.
 
 ---
 
-## 11. Colours, fonts, logo and effects
+## 12. Colours, fonts, logo and effects
 
-- **Colours**: `src/styles/theme.css` (the app's palette). Content files also use hex colours
-  directly (`color: "#00ff88"`). The palette: green `#00ff88`, teal `#4ecdc4`, yellow `#ffe66d`,
-  red `#ff2d55`, orange `#ff6b35`, violet `#c77dff`, pink `#ff71c5`, cyan `#00d4ff`; backgrounds
-  `#0a0e1a` / `#111827` / `#1a2340`; borders `#2a3a5c`; text `#e8f4f8` / `#9bb0c8` / `#6b8ba4`.
+- **Colours and the light theme**:
+  - **Two themes.** The site has a dark and a light theme. It follows the visitor's device setting
+    until they pick with the sun/moon switch in the nav bar; their pick is then remembered on that
+    device and wins over the device setting.
+  - **Where the colours live.** Every colour for both themes is in `src/styles/tokens.css`. That
+    file is shared with the app, so change both together.
+  - **Light palettes.** The light theme has three palettes: **Mist** (the default), **Paper** and
+    **Dusk**.
+    - To switch, change `data-palette="mist"` on the `<html>` tag in `index.html` to `"paper"` or
+      `"dusk"`.
+    - To preview one without changing anything, add `?palette=paper` (or `dusk`) to any address.
+      That page then shows that palette in light mode until the browser tab is closed.
+  - **In components, use the tokens, not hex codes:**
+    - `var(--teal)` for text. In the light theme it's a darker teal, right at the readability floor.
+    - `var(--teal-line)` for borders, lines and pixel shadows. Brighter than the text shade in light.
+    - `var(--teal-fill)` for solid buttons, badges, dots and bars. Always the original neon.
+    - `var(--card)` and `var(--background)` for surfaces.
+  - **Neon in light.** Icons and solid fills stay neon in the light theme, with a dark outline so a
+    pale neon (yellow especially) doesn't fade into the page. It happens automatically (the rules
+    are at the end of `tokens.css`):
+    - Icons: every icon's `<svg>` has `className="px-icon"`. Give the icon a hue
+      (`color={ink(...)}` or `"var(--teal)"`) and it draws in the neon with a one-pixel dark
+      outline. Grey and navy icons get no outline. `px-edge` always outlines one (the medal).
+    - Icon holes: the holes inside an icon (the "in" of LinkedIn, the inside of Instagram) are
+      the svg's first child, `<path className="px-hole" fill="none" d="…" />`. On an outlined
+      icon in light they are filled with paper, so the outline stays on the outside and can't
+      fill small holes. A cut-out that should read dark (a warning's "!", the skull's eyes) is a
+      `px-ink` path. A new icon with enclosed holes needs its `px-hole` path too.
+    - Fills: an inline `background: var(--yellow-fill)` gets a 2px dark edge, unless the element
+      already has a `var(--outline)` border (like `PixelLink`). Anything else can add
+      `className="fill-edge"`.
+  - **Content files** still use plain hex colours (`color: "#00ff88"`). Components pass them
+    through `ink()` (text), `line()` (borders), `fill()` (solid fills) or `tint()` from
+    `src/lib/color.ts`, which picks the right shade for the theme.
+  - **Always dark.** The intros, the phone mock-ups and the team house stay dark in both themes,
+    on purpose (they're marked `data-theme="dark"`). Character art and Pixi keep their colours.
+  - **The check.** `npm run check` includes a theme check (also `npm run check:theme` on its own).
+    It flags any palette hex code written into a component, and confirms each light palette keeps
+    text readable (4.5:1) and borders visible (3:1).
 - **Fonts**: loaded from Google Fonts in `index.html`. *Press Start 2P* (headings, class `font-pixel`),
   *VT323* (taglines, `font-vt`), *Share Tech Mono* (everything else). Sizes are in `src/styles/typography.css`.
+  - Press Start 2P always shows in capitals (its lowercase is hard to read), so "Drill Mode" in a
+    heading appears as DRILL MODE, like the logo. Keep writing headings in normal sentence case
+    in the content files; the capitals are added by the stylesheet.
 - **Logo** (nav bar and footer): `SITE.logo` in `src/content/site.ts`:
   - `mascot: "head"` or `"body"` shows Pixi's head or the whole of Pixi beside the wordmark.
   - `mascotColor` sets Pixi's colour.
@@ -372,10 +466,13 @@ flag, or a phrase that isn't in its line.
     file. The nav bar is then always visible.
   - Visitors whose device asks for reduced motion skip straight to the end of every intro, and
     the other animations are switched off.
+  - An intro plays by itself only the first time its page is opened after the site loads. Coming
+    back to the page later (from the nav, say) opens it already finished, scrolled down to the
+    first section. Scrolling all the way back up to it plays it again.
 
 ---
 
-## 12. The contact form
+## 13. The contact form
 
 The site has no server, so the form works one of two ways (explained at the top of `src/content/contact.ts`):
 
@@ -389,7 +486,7 @@ The dropdown choices are `CONTACT.topics`.
 
 ---
 
-## 13. Adding, removing or reordering sections and pages
+## 14. Adding, removing or reordering sections and pages
 
 **Sections**: each page file in `src/pages/` lists its sections top to bottom, one line each
 (e.g. `<StatsSection />`). Move a line to move the section; delete it to remove the section.
@@ -409,7 +506,7 @@ the phone mock-ups in `src/components/mocks/PhoneMocks.tsx`, and every avatar in
 
 ---
 
-## 14. Where the components came from
+## 15. Where the components came from
 
 | In this site | Copied from |
 |---|---|
@@ -427,17 +524,20 @@ art changes, copy the updated file over the one here.
 
 ---
 
-## 15. Checking your changes
+## 16. Checking your changes
 
 1. With `npm run dev` running, look at the page you changed, on a desktop-sized window and on a
    phone-sized one (in Chrome: right-click → Inspect → the phone/tablet icon).
-2. Run `npm run check`. It typechecks the content files (a mistyped icon name, a missing comma),
-   renders every page, confirms every image path exists in `public/`, and checks the demo scripts.
-   Fix anything marked ✗.
+2. If you changed text, switch the language (globe button) and check the page in at least one
+   other language too. Untranslated new text shows in English, which is expected.
+3. Run `npm run check`. It typechecks the content files (a mistyped icon name, a missing comma),
+   renders every page in every language, confirms every image path exists in `public/`, checks
+   the demo scripts and highlighted phrases in every language, and checks that the translation
+   files line up with the English. Fix anything marked ✗.
 
 ---
 
-## 16. Publishing the site
+## 17. Publishing the site
 
 The site builds to plain files (`dist/`), so it can go on almost any host. The app is already
 on Vercel, so that's the easiest option:
@@ -456,7 +556,7 @@ directly. On **Netlify**, do the same with a file `public/_redirects` containing
 
 ---
 
-## 17. Before launch checklist
+## 18. Before launch checklist
 
 - [ ] `npm run placeholders` shows nothing important left: real team names, roles, bios and links;
       the real contact email (`SITE.contactEmail`); real social links (`SOCIALS`).
@@ -465,6 +565,8 @@ directly. On **Netlify**, do the same with a file `public/_redirects` containing
       (delete `<BrandsSection />` from `src/pages/HomePage.tsx`).
 - [ ] The stats on the Home page (`HOME.stats`) are checked against the latest Singapore Police Force brief.
 - [ ] The Privacy Policy and Terms (`src/content/legal.ts`) have been reviewed, and the draft notices removed.
+- [ ] A native speaker has reviewed each translation (中文, Bahasa Melayu, தமிழ்) and removed its
+      `// DRAFT TRANSLATION` line. `npm run placeholders` lists the files still marked.
 - [ ] Decide whether to link the full app: set `SITE.appUrl` only once the public build is ready
       (the competition build had phone verification switched off for the demo).
 - [ ] The contact form works (send yourself a test message).
@@ -473,7 +575,7 @@ directly. On **Netlify**, do the same with a file `public/_redirects` containing
 
 ---
 
-## 18. Moving to a CMS later
+## 19. Moving to a CMS later
 
 The content files were written so that a CMS can take over cleanly. Each file in `src/content/`
 is effectively one CMS "model" (Home page, Product page, Team member, FAQ, …), and each field
@@ -490,7 +592,7 @@ in it becomes a CMS field.
 
 ---
 
-## 19. Troubleshooting
+## 20. Troubleshooting
 
 | Problem | Fix |
 |---|---|

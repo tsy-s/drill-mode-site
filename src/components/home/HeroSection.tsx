@@ -1,4 +1,5 @@
 import { HOME } from "../../content/home";
+import { useContent } from "../../i18n/content";
 import { PixelMascot } from "../avatars/PixelMascot";
 import { CharGrandma } from "../avatars/characters/CharGrandma";
 import { CharKid } from "../avatars/characters/CharKid";
@@ -9,19 +10,19 @@ import { SpeechBubble } from "../ui/SpeechBubble";
 
 /** The first section after the Home intro: tagline, short description and two buttons. */
 export function HeroSection({ id }: { id: string }) {
-  const hero = HOME.hero;
+  const hero = useContent(HOME).hero;
   return (
     <section id={id} className="section" style={{ paddingTop: "clamp(112px, 14vw, 160px)" }}>
       <div className="container-site grid items-center gap-14 lg:grid-cols-[1.1fr_1fr]">
         <Reveal className="flex flex-col gap-6">
           <div className="eyebrow">{hero.eyebrow}</div>
-          <h2 className="font-pixel" style={{ margin: 0, fontSize: "clamp(1.5rem, 3.6vw, 2.5rem)", lineHeight: 1.45, color: "#ffffff" }}>
+          <h2 className="font-pixel" style={{ margin: 0, fontSize: "clamp(1.5rem, 3.6vw, 2.5rem)", lineHeight: 1.45, color: "var(--foreground-strong)" }}>
             {hero.title}
           </h2>
           <p className="lead" style={{ margin: 0 }}>{hero.text}</p>
           <div className="flex flex-wrap gap-4 pt-2">
             <PixelLink to={hero.primary.to} size="lg">[ {hero.primary.label} ]</PixelLink>
-            <PixelLink to={hero.secondary.to} size="lg" color="#1a2340" textColor="#e8f4f8">{hero.secondary.label}</PixelLink>
+            <PixelLink to={hero.secondary.to} size="lg" color="var(--secondary)" textColor="var(--foreground)">{hero.secondary.label}</PixelLink>
           </div>
         </Reveal>
 

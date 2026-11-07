@@ -1,7 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  data-palette picks the light theme's colours: "mist" (default), "paper" or "dusk".
+  See src/styles/tokens.css. Add ?palette=paper to any address to preview one in light mode.
+-->
+<html lang="en" data-palette="mist">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Apply the theme before the page paints, so nobody sees a flash of the other one: the
+      // visitor's own pick if they made one, otherwise the device's light/dark setting.
+      // src/theme/ThemeProvider.tsx applies the same rule once the site is running.
+      (function () {
+        var root = document.documentElement;
+        var saved = null;
+        try { saved = localStorage.getItem("drillmode_site_theme"); } catch (e) { /* private mode */ }
+        var deviceLight = !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches);
+        root.dataset.theme = saved === "light" || saved === "dark" ? saved : deviceLight ? "light" : "dark";
+        try {
+          var preview = new URLSearchParams(location.search).get("palette");
+          if (preview) sessionStorage.setItem("drillmode_palette_preview", preview);
+          var palette = sessionStorage.getItem("drillmode_palette_preview");
+          if (palette) { root.dataset.palette = palette; root.dataset.theme = "light"; }
+        } catch (e) { /* no preview */ }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Default title and description. Each page sets its own with usePageMeta(). -->
     <title>Drill Mode · Scam drills for the whole family</title>
@@ -26,7 +48,7 @@
     />
 
     <style>
-      html, body { margin: 0; background: #05080f; }
+      html, body { margin: 0; background: var(--page, #05080f); }
     </style>
   </head>
   <body>
