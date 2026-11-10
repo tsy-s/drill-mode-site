@@ -70,6 +70,8 @@ export const ABOUT = {
  *               floor    oak | tile | checker | carpet | concrete | neon | metal
  *               light    mint | green | pink | purple | gold
  *               glow     true/false (a neon strip along the ceiling)
+ *               lighting auto | day | night (optional; auto, the default, is a day room in the light
+ *                        theme and a night room in the dark theme, as in the app)
  *  furniture  Pixel furniture in the room: `art` is a file name from public/furniture/ (without .svg).
  *             It stands in the open side of the room (the side away from the photo), next to the
  *             member's character. `x` is the distance from that side's left edge (0–100; keep it

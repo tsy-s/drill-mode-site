@@ -324,7 +324,7 @@ want them in the house, and edit it. **Remove someone:** delete their block.
   bio: "One or two sentences.",
   photo: "/media/team/alex.jpg",                      // optional
   avatar: { skinTone: "golden", hairStyle: "long", hairColor: "midnight", outfit: "teal-dress", accessories: ["round-glasses"] },
-  room: { wall: "lagoon", pattern: "circuit", floor: "neon", light: "mint", glow: true },
+  room: { wall: "lagoon", pattern: "circuit", floor: "neon", light: "mint", glow: true }, // add lighting: "night" to keep it a night room
   furniture: [
     { art: "18-desktop-setup", x: 2 },
     { art: "08-city-window", x: 38, wall: true },
@@ -437,14 +437,29 @@ flag, or a phrase that isn't in its line.
       icon in light they are filled with paper, so the outline stays on the outside and can't
       fill small holes. A cut-out that should read dark (a warning's "!", the skull's eyes) is a
       `px-ink` path. A new icon with enclosed holes needs its `px-hole` path too.
+    - Inner lines: how an icon's holes look in light was picked per icon in the light-theme
+      review, with `data-inner` on its `<svg>`: none (the holes are paper), `"thin"` (a 0.55px
+      dark line just inside each hole, drawn by its `px-hole-line` path) or `"full"` (see-through
+      holes that the outline traces). Every icon with holes has a `px-hole-line` path, so changing
+      an icon only means changing `data-inner`. `IconGear` sets it in code: `"thin"` in a hue,
+      none when grey (as in the app).
     - Fills: an inline `background: var(--yellow-fill)` gets a 2px dark edge, unless the element
       already has a `var(--outline)` border (like `PixelLink`). Anything else can add
       `className="fill-edge"`.
   - **Content files** still use plain hex colours (`color: "#00ff88"`). Components pass them
     through `ink()` (text), `line()` (borders), `fill()` (solid fills) or `tint()` from
     `src/lib/color.ts`, which picks the right shade for the theme.
-  - **Always dark.** The intros, the phone mock-ups and the team house stay dark in both themes,
-    on purpose (they're marked `data-theme="dark"`). Character art and Pixi keep their colours.
+  - **Always dark.** The intros and the phone mock-ups stay dark in both themes, on purpose
+    (they're marked `data-theme="dark"`). Character art and Pixi keep their colours.
+  - **Day and night rooms.** Rooms (the home page hero, the product page's house card and the team
+    house) are day rooms in the light theme and night rooms in the dark theme, like the app's.
+    A room style can fix one with `lighting: "day"` or `"night"` (default `"auto"`). Every wall
+    and floor has a day twin in `src/components/room/roomStyle.ts`; the day wallpaper marks are in
+    `src/styles/room-style.css`; the three window pieces have `-day.svg` twins in
+    `public/furniture/`. `ROOM_LIGHTING_MODE` at the top of `roomStyle.ts` switches it off:
+    `"theme"` ignores each room's `lighting` and follows the theme, `"night"` keeps every room
+    the night scene, as before. A room's box gets `data-theme` from its own time of day
+    (`src/components/room/lighting.tsx`), so tokens inside it match the room.
   - **The check.** `npm run check` includes a theme check (also `npm run check:theme` on its own).
     It flags any palette hex code written into a component, and confirms each light palette keeps
     text readable (4.5:1) and borders visible (3:1).
